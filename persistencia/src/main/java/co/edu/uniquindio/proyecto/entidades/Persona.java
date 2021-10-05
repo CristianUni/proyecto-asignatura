@@ -1,18 +1,24 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import lombok.*;
+
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
+@ToString
 public class Persona implements Serializable {
 
     @Id
+    @EqualsAndHashCode.Include
     private String cedula;
     private String nombre;
     private String email;
@@ -23,9 +29,6 @@ public class Persona implements Serializable {
     @Enumerated
     private GeneroPersona generoPersona;
 
-    public Persona(){
-        super();
-    }
 
     public Persona(String cedula, String nombre, String email) {
         this.cedula = cedula;
@@ -33,56 +36,4 @@ public class Persona implements Serializable {
         this.email = email;
     }
 
-    public String getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Map<String, String> getNumTelefonos() {
-        return numTelefonos;
-    }
-
-    public void setNumTelefonos(Map<String, String> numTelefonos) {
-        this.numTelefonos = numTelefonos;
-    }
-
-    public GeneroPersona getGenero() {
-        return generoPersona;
-    }
-
-    public void setGenero(GeneroPersona generoPersona) {
-        this.generoPersona = generoPersona;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Persona persona = (Persona) o;
-        return Objects.equals(cedula, persona.cedula);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cedula);
-    }
 }
