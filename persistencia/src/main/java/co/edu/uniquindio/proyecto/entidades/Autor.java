@@ -2,10 +2,8 @@ package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Max;
 import java.io.Serializable;
 
 @Entity
@@ -21,7 +19,11 @@ public class Autor implements Serializable {
     @EqualsAndHashCode.Include
     private Integer codigo;
 
+    @Column(length = 100, nullable = false)
     private String nombre;
+
+    @Max(9999)
+    @Column(nullable = false)
     private Integer anioNacimiento;
 
     public Autor(String nombre, Integer anioNacimiento) {
