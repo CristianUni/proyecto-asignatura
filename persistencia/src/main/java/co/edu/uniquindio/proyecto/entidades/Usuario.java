@@ -4,10 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
+//Entidad hijo Usuario
 @Entity
 @Getter
 @Setter
@@ -15,26 +14,44 @@ import java.util.Map;
 @ToString(callSuper = true)
 public class Usuario extends Persona implements Serializable {
 
-
-    @Column(nullable = false, unique = true, length = 120)
-    private String email;
-
+    //Lista de telefonos del usuario
     @ElementCollection
-    @Column(nullable = false)
-    private Map<String, String> numTelefonos;
+    private List<String> telefonos;
 
+    //Relacion de muchos a uno con Ciudad
     @ManyToOne
     @JoinColumn(nullable = false)
     private Ciudad ciudad;
 
+    //Relacion de uno a muchos con Producto
+    @OneToMany(mappedBy = "vendedor")
     @ToString.Exclude
-    @OneToMany(mappedBy = "usuarioPrestamo")
-    private List<Prestamo> prestamos;
+    private List<Producto> productosVenta;
 
-    public Usuario(String codigo, String nombre, LocalDate fechaNacimiento, GeneroPersona generoPersona, String email, Map<String, String> numTelefonos, Ciudad ciudad) {
-        super(codigo, nombre, fechaNacimiento, generoPersona);
-        this.email = email;
-        this.numTelefonos = numTelefonos;
-        this.ciudad=ciudad;
-    }
+    //Relacion de uno a muchos con Comentario
+    @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
+    private List<Comentario> comentarios;
+
+    //Relacion de uno a muchos con Compra
+    @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
+    private List<Compra> compras;
+
+    //Relacion de uno a muchos con DetalleSubasta
+    @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
+    private List<DetalleSubasta> detalleSubasta;
+
+    //Relacion de uno a muchos con Chat
+    @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
+    private List<Chat> chats;
+
+    //Relacion de muchos a muchos con Producto
+    @ManyToMany
+    @ToString.Exclude
+    private List<Producto> productosFavoritos;
+
+
 }

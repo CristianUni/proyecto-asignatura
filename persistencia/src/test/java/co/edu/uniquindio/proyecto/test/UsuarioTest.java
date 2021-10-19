@@ -1,7 +1,6 @@
 package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
-import co.edu.uniquindio.proyecto.entidades.GeneroPersona;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
@@ -29,40 +28,12 @@ public class UsuarioTest {
 
     @Test
     public void registrarTest(){
-        Ciudad ciudad = new Ciudad("Armenia");
-        ciudadRepo.save(ciudad);
-
-        Map<String, String> telefonos = new HashMap<>();
-        telefonos.put("casa","1233432");
-        telefonos.put("celular","89878787");
-
-        Usuario usuario= new Usuario("123","Pepito",LocalDate.now(),GeneroPersona.MASCULINO,"pepe@mail.com",telefonos,ciudad);
-
-        Usuario usuarioGuardado = usuarioRepo.save(usuario);
-
-        Assertions.assertNotNull(usuarioGuardado);
 
     }
 
     @Test
     public void eliminarTest(){
 
-        Ciudad ciudad = new Ciudad("Armenia");
-        ciudadRepo.save(ciudad);
-
-        Map<String, String> telefonos = new HashMap<>();
-        telefonos.put("casa","1233432");
-        telefonos.put("celular","89878787");
-
-        Usuario usuario= new Usuario("123","Pepito",LocalDate.now(),GeneroPersona.MASCULINO,"pepe@mail.com",telefonos,ciudad);
-
-        usuarioRepo.save(usuario);
-
-        usuarioRepo.deleteById("123");
-
-        Usuario usuarioBuscado = usuarioRepo.findById("123").orElse(null);
-
-        Assertions.assertNull(usuarioBuscado);
     }
 
     @Test

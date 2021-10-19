@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+//Padre persona
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,18 +17,20 @@ import java.time.LocalDate;
 @ToString
 public class Persona implements Serializable {
 
+    //Llave primaria de la entidad
     @Id
-    @Column(length = 10)
     @EqualsAndHashCode.Include
     private String codigo;
 
-    @Column(nullable = false,length = 100)
+    //Atributo nombre de la persona
+    @Column(nullable = false,length = 150)
     private String nombre;
 
-    @Column(nullable = false)
-    private LocalDate fechaNacimiento;
+    //Atributo email de la persona
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    @Column(nullable = false)
-    @Enumerated
-    private GeneroPersona generoPersona;
+    //Atributo contrasena de la persona
+    @Column(nullable = false, length = 100)
+    private String password;
 }
