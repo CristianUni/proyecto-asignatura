@@ -1,0 +1,51 @@
+package co.edu.uniquindio.proyecto.entidades;
+
+import lombok.*;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+
+//Entidad Compra
+
+@Entity
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
+@ToString
+public class Compra implements Serializable {
+
+    //Llave primaria de la entidad que es autogenerada
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    private Integer codigo;
+
+    //Atributo que sirve para guardar la hora y fecha de cuando se hace la compra
+    @Column(name = "fechaCompra")
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime fechaCompra;
+
+    //Atributo que sirve para guardar el medio por el cual se realiza el pago
+    @NotBlank(message = "El campo Pago es obligatorio")
+    @Size(max = 10, message = "El tamaño maximo debe ser de 10 caracteres")
+    @Column(name = "medioPago", length = 10, nullable = false)
+    private String medioPago;
+
+
+    //Relacion de Compra con Usuario de muchos a uno
+    @ToString.Exclude
+    @ManyToOne
+    private Usuario usuario;
+
+    //Relación con la entidad DetalleComrpa, donde indica que la Compra tiene un lista de DetallesCompra
+    @OneToMany(mappedBy = "compra")
+    private List<DetalleCompra> detalleCompraList;
+
+    public Compra (String medioPago){this.medioPago=medioPago}
+
+}
