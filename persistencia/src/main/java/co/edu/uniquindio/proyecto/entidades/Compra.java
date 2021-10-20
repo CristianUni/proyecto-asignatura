@@ -26,7 +26,7 @@ public class Compra implements Serializable {
     private Integer codigo;
 
     //Atributo que sirve para guardar la hora y fecha de cuando se hace la compra
-    @Column(name = "fechaCompra")
+    @Column(name = "fechaCompra", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime fechaCompra;
 
     //Atributo que sirve para guardar el medio por el cual se realiza el pago

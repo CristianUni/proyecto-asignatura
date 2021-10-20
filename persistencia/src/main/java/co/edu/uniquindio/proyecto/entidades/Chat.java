@@ -26,8 +26,15 @@ public class Chat implements Serializable {
     @ManyToOne
     private Usuario usuario;
 
+    //Relación muchos a uno con la entidad Producto
+    @ToString.Exclude
+    @ManyToOne
+    private Producto producto;
+
     //Relación uno a muchos con la entidad Mensaje
     @ToString.Exclude
     @OneToMany(mappedBy = "chat")
     private List<Mensaje> mensajes;
+
+
 }

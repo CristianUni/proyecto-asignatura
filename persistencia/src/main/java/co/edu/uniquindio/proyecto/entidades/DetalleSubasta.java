@@ -27,7 +27,8 @@ public class DetalleSubasta implements Serializable {
     @Column(nullable = false, precision = 9, scale = 2)
     private Double valor;
 
-    @Column(nullable = false)
+    //Fecha de la subasta
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime fechaSubasta;
 
     //Relacion de DetalleSubasta con Usuario de muchos a uno

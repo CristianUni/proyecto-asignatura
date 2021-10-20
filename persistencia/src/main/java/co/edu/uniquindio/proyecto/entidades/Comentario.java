@@ -38,7 +38,7 @@ public class Comentario implements Serializable {
     private String respuesta;
 
     //Atributo que sirve para guardar la hora y fecha de cuando se hizo el comentario
-    @Column(name = "fechaComentario")
+    @Column(name = "fechaComentario", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime fechaComentario;
 
     //Atributo que sirve para guardar la calificación que asigna el usuario

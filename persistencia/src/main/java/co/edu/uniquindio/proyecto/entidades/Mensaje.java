@@ -30,6 +30,7 @@ public class Mensaje implements Serializable {
     private String emisor;
 
     //Fecha del mensaje al momento de ser enviado
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime fecha;
 
     //Relación muchos a uno con la entidad Chat

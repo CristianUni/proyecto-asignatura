@@ -32,7 +32,6 @@ public class DetalleCompra implements Serializable {
 
     //Atributo que sirve para guardar el precio del producto a comprar
     @Column(name = "precioProducto", nullable = false)
-    @Max(value = 20 , message = "Deben ser máximo 20 unidades")
     private double precioProducto;
 
     //Relacion de DetalleCompra con Producto de muchos a uno

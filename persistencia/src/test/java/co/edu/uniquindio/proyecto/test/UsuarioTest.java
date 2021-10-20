@@ -54,9 +54,13 @@ public class UsuarioTest {
     @Sql("classpath:usuarios.sql")
     public void listarTest(){
 
-
         List<Usuario> usuarios = usuarioRepo.findAll();
 
         usuarios.forEach(u -> System.out.println(u));
+    }
+
+    @Test
+    public void filtralNombresTest(){
+        
     }
 }
