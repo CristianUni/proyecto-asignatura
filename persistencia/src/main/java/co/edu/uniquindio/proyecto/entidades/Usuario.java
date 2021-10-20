@@ -53,5 +53,7 @@ public class Usuario extends Persona implements Serializable {
     @ToString.Exclude
     private List<Producto> productosFavoritos;
 
-
+    public Usuario(String codigo, String nombre, String email, String password) {
+        super(codigo, nombre, email, password);
+    }
 }

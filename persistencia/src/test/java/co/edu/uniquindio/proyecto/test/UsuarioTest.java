@@ -1,6 +1,5 @@
 package co.edu.uniquindio.proyecto.test;
 
-import co.edu.uniquindio.proyecto.entidades.Ciudad;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
@@ -11,10 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -27,17 +23,32 @@ public class UsuarioTest {
     private CiudadRepo ciudadRepo;
 
     @Test
+    @Sql("classpath:datos.sql")
     public void registrarTest(){
+        Usuario usuarioNuevo = new Usuario("126","Lee Lopez","elchino@email.com","micontlasena");
 
+        Usuario usuarioGuardado = usuarioRepo.save(usuarioNuevo);
+
+        Assertions.assertNotNull(usuarioGuardado);
     }
 
     @Test
+    @Sql("classpath:datos.sql")
     public void eliminarTest(){
 
+        Usuario guardado = usuarioRepo.findById("123").orElse(null);
+
+        Assertions.assertNotNull(guardado);
+
+        usuarioRepo.delete(guardado);
+
+        Usuario guardado2 = usuarioRepo.findById("123").orElse(null);
+
+        Assertions.assertNull(guardado2);
     }
 
     @Test
-    @Sql("classpath:usuarios.sql")
+    @Sql("classpath:datos.sql")
     public void actualizarTest(){
 
         Usuario guardado = usuarioRepo.findById("124").orElse(null);
@@ -51,7 +62,7 @@ public class UsuarioTest {
     }
 
     @Test
-    @Sql("classpath:usuarios.sql")
+    @Sql("classpath:datos.sql")
     public void listarTest(){
 
         List<Usuario> usuarios = usuarioRepo.findAll();
@@ -59,8 +70,4 @@ public class UsuarioTest {
         usuarios.forEach(u -> System.out.println(u));
     }
 
-    @Test
-    public void filtralNombresTest(){
-        
-    }
 }

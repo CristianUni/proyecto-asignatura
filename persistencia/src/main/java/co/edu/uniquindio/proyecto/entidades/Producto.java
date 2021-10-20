@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 //Entidad Producto
@@ -45,6 +47,10 @@ public class Producto implements Serializable {
     @Column(nullable = false, precision = 3, scale = 2)
     @Positive
     private double descuento;
+
+    //Atributo de la fecha limite del producto
+    @Column(nullable = false)
+    private LocalDate fechaLimite;
 
     //Relacion de muchos a uno con Usuario
     @ToString.Exclude
