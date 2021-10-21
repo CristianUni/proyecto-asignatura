@@ -40,4 +40,11 @@ public class DetalleSubasta implements Serializable {
     @ManyToOne
     @ToString.Exclude
     private Subasta subasta;
+
+    public DetalleSubasta(Double valor, LocalDateTime fechaSubasta, Usuario usuario, Subasta subasta) {
+        this.valor = valor;
+        this.fechaSubasta = fechaSubasta;
+        this.usuario = usuario;
+        this.subasta = subasta;
+    }
 }

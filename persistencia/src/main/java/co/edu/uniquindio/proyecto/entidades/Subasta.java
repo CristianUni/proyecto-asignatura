@@ -35,4 +35,8 @@ public class Subasta implements Serializable {
     @OneToMany(mappedBy = "subasta")
     private List<DetalleSubasta> detalleSubastas;
 
+    public Subasta( LocalDateTime fechaLimite, Producto producto) {
+        this.fechaLimite = fechaLimite;
+        this.producto = producto;
+    }
 }

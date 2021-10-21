@@ -37,4 +37,11 @@ public class Mensaje implements Serializable {
     @ManyToOne
     @ToString.Exclude
     private Chat chat;
+
+    public Mensaje(String mensaje, String emisor, LocalDateTime fecha, Chat chat) {
+        this.mensaje = mensaje;
+        this.emisor = emisor;
+        this.fecha = fecha;
+        this.chat = chat;
+    }
 }

@@ -97,4 +97,13 @@ public class Producto implements Serializable {
     @ManyToMany
     private List<Categoria> categorias;
 
+
+    public Producto(String nombre, int unidades, String descripcion, double precio, double descuento, LocalDate fechaLimite) {
+        this.nombre = nombre;
+        this.unidades = unidades;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.descuento = descuento;
+        this.fechaLimite = fechaLimite;
+    }
 }

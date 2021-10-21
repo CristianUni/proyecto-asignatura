@@ -12,6 +12,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 
+//Pruebas unitaria Usuario
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UsuarioTest {
@@ -22,6 +23,7 @@ public class UsuarioTest {
     @Autowired
     private CiudadRepo ciudadRepo;
 
+    //Test registrar Usuario
     @Test
     @Sql("classpath:datos.sql")
     public void registrarTest(){
@@ -32,6 +34,7 @@ public class UsuarioTest {
         Assertions.assertNotNull(usuarioGuardado);
     }
 
+    //Test eliminar Usuario
     @Test
     @Sql("classpath:datos.sql")
     public void eliminarTest(){
@@ -47,6 +50,7 @@ public class UsuarioTest {
         Assertions.assertNull(guardado2);
     }
 
+    //Test auctualizar Usuario
     @Test
     @Sql("classpath:datos.sql")
     public void actualizarTest(){
@@ -61,6 +65,7 @@ public class UsuarioTest {
         Assertions.assertEquals("maria1@email.com", usuarioBuscado.getEmail());
     }
 
+    //Test listar Usuario
     @Test
     @Sql("classpath:datos.sql")
     public void listarTest(){
@@ -69,5 +74,4 @@ public class UsuarioTest {
 
         usuarios.forEach(u -> System.out.println(u));
     }
-
 }
