@@ -10,3 +10,4 @@
 
 #Ignora archis del sistema Mac
 .DS_store
+/persistencia/target/
