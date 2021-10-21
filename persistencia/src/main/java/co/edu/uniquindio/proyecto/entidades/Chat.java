@@ -37,4 +37,9 @@ public class Chat implements Serializable {
     private List<Mensaje> mensajes;
 
 
+    public Chat(Usuario usuario, Producto producto, List<Mensaje> mensajes) {
+        this.usuario = usuario;
+        this.producto = producto;
+        this.mensajes = mensajes;
+    }
 }

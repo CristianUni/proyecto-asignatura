@@ -1,7 +1,6 @@
 package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
-import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,16 +11,18 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 
+//Clase para realizar la prueba unitaria del CRUD de la entidad Ciudad
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class CiudadTest {
 
 
+    //Repositorio de la entidad ciudad
     @Autowired
     private CiudadRepo ciudadRepo;
 
+    //Método test para comprobar la correcta ejecución a la hora de crear una ciudad
     @Test
-    @Sql("classpath:datos.sql")
     public void crearCiudadTest(){
         Ciudad ciudad = new Ciudad("Montenegro");
         Ciudad ciudadGuardada = ciudadRepo.save(ciudad);
@@ -29,6 +30,7 @@ public class CiudadTest {
         Assertions.assertNotNull(ciudadGuardada);
     }
 
+    //Método test para verificar que se elimine correctamente una ciudad de la base de datos
     @Test
     @Sql("classpath:datos.sql")
     public void eliminarCiudadTest(){
@@ -44,6 +46,7 @@ public class CiudadTest {
         Assertions.assertNull(guardada2);
     }
 
+    //Método test para verificar el correcto funcionamiento al momento de actualizar un dato de una ciudad
     @Test
     @Sql("classpath:datos.sql")
     public void actualizarCiudadTest(){
@@ -58,6 +61,7 @@ public class CiudadTest {
         Assertions.assertEquals("Tebaida", ciudadBuscada.getNombre());
     }
 
+    //Método test para listar las ciudades que se encuentran guardadas en la base de datos
     @Test
     @Sql("classpath:datos.sql")
     public void listarCiudadesTest(){

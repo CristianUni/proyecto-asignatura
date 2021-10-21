@@ -16,4 +16,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class Administrador extends Persona implements Serializable {
+
+    public Administrador(String codigo, String nombre, String email, String password) {
+        super(codigo, nombre, email, password);
+    }
 }

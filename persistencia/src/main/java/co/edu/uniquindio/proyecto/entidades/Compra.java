@@ -45,6 +45,9 @@ public class Compra implements Serializable {
     @OneToMany(mappedBy = "compra")
     private List<DetalleCompra> detalleCompraList;
 
-    public Compra (String medioPago){this.medioPago=medioPago;}
-
+    public Compra(String medioPago, Usuario usuario, List<DetalleCompra> detalleCompraList) {
+        this.medioPago = medioPago;
+        this.usuario = usuario;
+        this.detalleCompraList = detalleCompraList;
+    }
 }

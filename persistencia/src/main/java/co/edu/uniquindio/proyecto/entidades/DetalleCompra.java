@@ -43,4 +43,11 @@ public class DetalleCompra implements Serializable {
     @ToString.Exclude
     @ManyToOne
     private Compra compra;
+
+    public DetalleCompra(int unidades, double precioProducto, Producto producto, Compra compra) {
+        this.unidades = unidades;
+        this.precioProducto = precioProducto;
+        this.producto = producto;
+        this.compra = compra;
+    }
 }
