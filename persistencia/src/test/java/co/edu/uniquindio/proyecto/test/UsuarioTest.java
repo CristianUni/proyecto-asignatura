@@ -8,9 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
-
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 //Pruebas unitaria Usuario
 @DataJpaTest
@@ -73,5 +78,46 @@ public class UsuarioTest {
         List<Usuario> usuarios = usuarioRepo.findAll();
 
         usuarios.forEach(u -> System.out.println(u));
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void filtrarNombreTest(){
+
+        List<Usuario> lista = usuarioRepo.findAllByNombreContains("Pepe");
+        lista.forEach(System.out::println);
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void filtrarEmailTest(){
+
+        Optional<Usuario> usuario = usuarioRepo.findByEmail("juan@email.com");
+
+        if(usuario.isPresent()){
+            System.out.println(usuario.get());
+        }else{
+            System.out.println("no existe ese correo");
+        }
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void paginarListaTest(){
+
+        Pageable paginador = PageRequest.of(0,2);
+        Page<Usuario> lista = usuarioRepo.findAll(paginador);
+
+        System.out.println(lista.stream().collect(Collectors.toList()));
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void ordenarListaTest(){
+
+        Pageable paginador = PageRequest.of(0,2);
+        List<Usuario> lista = usuarioRepo.findAll(Sort.by("nombre"));
+
+        System.out.println(lista);
     }
 }
