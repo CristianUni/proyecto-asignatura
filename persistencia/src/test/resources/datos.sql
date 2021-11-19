@@ -2,7 +2,7 @@ insert into ciudad values (1, "Armenia");
 insert into ciudad values (2, "Calarcá");
 insert into ciudad values (3, "Circasia");
 
-insert into usuario values ("123", "juan@email.com", "Juan Gonzales", "5468414", 1);
+insert into usuario values ("123", "juan@email.com", "Juan Gonzales", "5468414", 2);
 insert into usuario values ("124", "maria@email.com", "Juanita Maria", "668454", 2);
 insert into usuario values ("125", "perez@email.com", "Joan Perez", "685448", 3);
 
@@ -41,6 +41,7 @@ insert into detalle_compra values (3, 65500000, 1, 3, 3);
 insert into comentario values (1, 3, "2021/10/05 09:12:12", "Algunas luces no encienden", "", 1, "125");
 insert into comentario values (2, 5, "2021/10/05 09:12:12", "No soy fanboy de Apple pero es lo mejor Dios creo", "", 2, "123");
 insert into comentario values (3, 4, "2021/10/05 09:12:12", "Increible, ahora puedo firmar con oro liquido", "", 3, "124");
+insert into comentario values (4, 1, "2021/10/10 09:12:12", "la tinta se empezó a oscurecer, muy mala","", 3, "124");
 
 insert into usuario_productos_favoritos values ("123", 3);
 insert into usuario_productos_favoritos values ("123", 2);

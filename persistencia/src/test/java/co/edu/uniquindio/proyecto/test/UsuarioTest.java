@@ -1,5 +1,7 @@
 package co.edu.uniquindio.proyecto.test;
 
+import co.edu.uniquindio.proyecto.dto.UsuarioYProducto;
+import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
@@ -119,5 +121,31 @@ public class UsuarioTest {
         List<Usuario> lista = usuarioRepo.findAll(Sort.by("nombre"));
 
         System.out.println(lista);
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void obtenerFavoritosTest(){
+
+        List<Producto> favoritos = usuarioRepo.obtenerProductosFavoritos("juan@email.com");
+        favoritos.forEach(System.out::println);
+        Assertions.assertEquals(2,favoritos.size());
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void listarUsuariosProductosTest(){
+
+        List<UsuarioYProducto> respuesta = usuarioRepo.listarUsuariosYProductos();
+
+        respuesta.forEach(System.out::println);
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void listarUsuariosComentariosTest(){
+
+        List<Usuario> usuarios= usuarioRepo.listarUsuariosComentario(1);
+        usuarios.forEach(System.out::println);
     }
 }

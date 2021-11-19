@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.test;
 
+import co.edu.uniquindio.proyecto.dto.ProductosPorUsuario;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 //Pruebas unitarias Producto
@@ -71,4 +73,63 @@ public class ProductoTest {
 
         producto.forEach(u -> System.out.println(u));
     }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void obtenerNombreVendedorTest(){
+
+        String nombre = productoRepo.obtenerNombreVendedor(2);
+        Assertions.assertEquals("Joan Perez", nombre);
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void listarProductosYComentariosTest(){
+
+        List<Object[]> respuesta = productoRepo.listarProductosComentarios();
+
+        respuesta.forEach(objeto -> System.out.println(objeto[0]+"----"+objeto[1]));
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void listarProductosValidostest(){
+
+        List<Object[]> productos = productoRepo.listarProductosValidos(LocalDateTime.now());
+
+        productos.forEach(p -> System.out.println(p[0]));
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void listarProductosCategoriasTest(){
+
+        List<Object[]> productos = productoRepo.obtenerTotalProductosPorCategoria();
+        productos.forEach(p -> System.out.println(p[0]+", "+p[1]));
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void listarProductosSinComentariosTest(){
+
+        List<Producto> productos = productoRepo.obtenerProductosSinComentarios();
+        productos.forEach(System.out::println);
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void buscarProductosPorNombreTest(){
+
+        List<Producto> productos = productoRepo.buscarProductosPorNombre("Iphone");
+        productos.forEach(System.out::println);
+    }
+
+    @Test
+    @Sql("classpath:datos.sql")
+    public void obtenerProductosEnVentaTest(){
+
+        List<ProductosPorUsuario> productos = productoRepo.obtenerProductosEnVenta();
+        productos.forEach(System.out::println);
+    }
+
 }

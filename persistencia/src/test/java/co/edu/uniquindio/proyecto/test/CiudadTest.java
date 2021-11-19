@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
+import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -71,5 +72,12 @@ public class CiudadTest {
         ciudades.forEach(u -> System.out.println(u));
     }
 
+    @Test
+    @Sql("classpath:datos.sql")
+    public void listarUsuariosCiudadTest(){
 
+        List<Usuario> usuarios = ciudadRepo.listarUsuario("Calarcá");
+
+        Assertions.assertEquals(2,usuarios.size());
+    }
 }

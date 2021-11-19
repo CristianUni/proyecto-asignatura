@@ -84,12 +84,10 @@ public class DetalleCompraTest {
     @Test
     @Sql("classpath:datos.sql")
     public void listarTest(){
-
-
         List<DetalleCompra> detalleCompraList = detalleCompraRepo.findAll();
 
         detalleCompraList.forEach(detalleCompra -> System.out.println(detalleCompra));
 
-
     }
+
 }
