@@ -34,7 +34,7 @@ public class UsuarioTest {
     @Test
     @Sql("classpath:datos.sql")
     public void registrarTest(){
-        Usuario usuarioNuevo = new Usuario("126","Lee Lopez","elchino@email.com","micontlasena");
+        Usuario usuarioNuevo = new Usuario("126","Lee Lopez","elchino@email.com","micontlasena", "lee");
 
         Usuario usuarioGuardado = usuarioRepo.save(usuarioNuevo);
 

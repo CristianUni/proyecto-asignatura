@@ -1,8 +1,10 @@
 package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -24,10 +26,12 @@ public class Persona implements Serializable {
 
     //Atributo nombre de la persona
     @Column(nullable = false,length = 150)
+    @Length(max = 150)
     private String nombre;
 
     //Atributo email de la persona
     @Column(nullable = false, unique = true)
+    @Email
     private String email;
 
     //Atributo contrasena de la persona

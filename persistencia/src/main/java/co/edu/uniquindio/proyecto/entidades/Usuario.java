@@ -18,9 +18,13 @@ public class Usuario extends Persona implements Serializable {
     @ElementCollection
     private List<String> telefonos;
 
+    @Column(nullable = false, unique = true)
+    private String username;
+
     //Relacion de muchos a uno con Ciudad
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @ToString.Exclude
+    //@JoinColumn(nullable = false)
     private Ciudad ciudad;
 
     //Relacion de uno a muchos con Producto
@@ -53,7 +57,8 @@ public class Usuario extends Persona implements Serializable {
     @ToString.Exclude
     private List<Producto> productosFavoritos;
 
-    public Usuario(String codigo, String nombre, String email, String password) {
+    public Usuario(String codigo, String nombre, String email, String password, String username) {
         super(codigo, nombre, email, password);
+        this.username = username;
     }
 }
