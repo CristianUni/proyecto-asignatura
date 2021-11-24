@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class Usuario extends Persona implements Serializable {
     private List<String> telefonos;
 
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "El campo está vacío, debe ingresar un username")
     private String username;
 
     //Relacion de muchos a uno con Ciudad

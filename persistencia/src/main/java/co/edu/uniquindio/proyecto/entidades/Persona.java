@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 //Padre persona
@@ -26,14 +27,16 @@ public class Persona implements Serializable {
     //Atributo nombre de la persona
     @Column(nullable = false,length = 150)
     @Length(max = 150)
+    @NotBlank(message = "El campo está vacío, debe ingresar un nombre")
     private String nombre;
 
     //Atributo email de la persona
     @Column(nullable = false, unique = true)
-    @Email
+    @Email(message = "Ingrese un email válido")
     private String email;
 
     //Atributo contrasena de la persona
     @Column(nullable = false, length = 100)
+    @NotBlank(message = "El campo está vacío, debe ingresar una password")
     private String password;
 }

@@ -46,7 +46,7 @@ public class UsuarioServicioImpl implements  UsuarioServicio{
     @Override
     public Usuario actualizarUsuario(Usuario u) throws Exception {
 
-       /* Optional<Usuario> buscado = buscarPorEmail(u.getEmail());
+      Optional<Usuario> buscado = buscarPorEmail(u.getEmail());
 
         if (buscado.isPresent()){
             throw new Exception("El email del usuario ya existe.");
@@ -57,9 +57,9 @@ public class UsuarioServicioImpl implements  UsuarioServicio{
 
         if (buscado.isPresent()){
             throw new Exception("El username del usuario ya existe.");
-        }*/
+        }
 
-        Optional<Usuario> buscado = usuarioRepo.findById(u.getCodigo());
+         buscado = usuarioRepo.findById(u.getCodigo());
 
         if (buscado.isEmpty())
         {
