@@ -3,7 +3,6 @@ package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Compra;
 import co.edu.uniquindio.proyecto.entidades.DetalleCompra;
-import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CompraRepo;
 import co.edu.uniquindio.proyecto.repositorios.DetalleCompraRepo;
@@ -41,8 +40,11 @@ public class CompraTest {
     @Sql("classpath:datos.sql")
     public void agregarTest(){
 
-        Usuario usuario = usuarioRepo.getById("123");
-        DetalleCompra detalleCompra = detalleCompraRepo.getById(1);
+        //Usuario usuario = usuarioRepo.getById("123");
+        //DetalleCompra detalleCompra = detalleCompraRepo.getById(1);
+
+        Usuario usuario = usuarioRepo.getOne("123");
+        DetalleCompra detalleCompra = detalleCompraRepo.getOne(1);
 
         List<DetalleCompra> detalleCompraList = new ArrayList<>();
         detalleCompraList.add(detalleCompra);

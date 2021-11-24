@@ -26,7 +26,7 @@ public class ProductoTest {
     @Test
     @Sql("classpath:datos.sql")
     public void registrarTest(){
-        Producto productoNuevo = new Producto("Steam desk",23,"Consola de videojuegos portatil",3500000,0.5, LocalDate.now());
+        Producto productoNuevo = new Producto("Steam desk","SteamDesk", 23,"Consola de videojuegos portatil",3500000,0.5, LocalDate.now(), null);
 
         Producto productoGuardado = productoRepo.save(productoNuevo);
 

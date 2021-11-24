@@ -2,7 +2,6 @@ package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Subasta;
-import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
 import co.edu.uniquindio.proyecto.repositorios.SubastaRepo;
 import org.junit.jupiter.api.Assertions;
@@ -30,7 +29,8 @@ public class SubastaTest {
     @Test
     @Sql("classpath:datos.sql")
     public void registrarTest(){
-        Producto productoGuardado = productoRepo.getById(1);
+        //Producto productoGuardado = productoRepo.getById(1);
+        Producto productoGuardado = productoRepo.getOne(1);
 
         Subasta subastaNuevo = new Subasta(LocalDateTime.now(),productoGuardado);
 
@@ -61,13 +61,15 @@ public class SubastaTest {
     public void actualizarTest(){
 
         Subasta guardado = subastaRepo.findById(2).orElse(null);
-        guardado.setProducto(productoRepo.getById(1));
+        //guardado.setProducto(productoRepo.getById(1));
+        guardado.setProducto(productoRepo.getOne(1));
 
         subastaRepo.save(guardado);
 
         Subasta subastaBuscado = subastaRepo.findById(2).orElse(null);
 
-        Assertions.assertEquals(productoRepo.getById(1), subastaBuscado.getProducto());
+        //Assertions.assertEquals(productoRepo.getById(1), subastaBuscado.getProducto());
+        Assertions.assertEquals(productoRepo.getOne(1), subastaBuscado.getProducto());
     }
 
     //Test listar Subasta

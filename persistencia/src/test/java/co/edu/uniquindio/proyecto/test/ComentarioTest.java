@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -38,7 +37,8 @@ public class ComentarioTest {
     @Test
     @Sql("classpath:datos.sql")
     public void agregarTest(){
-        Usuario usuario = usuarioRepo.getById("123");
+        //Usuario usuario = usuarioRepo.getById("123");
+        Usuario usuario = usuarioRepo.getOne("123");
         Producto producto = productoRepo.findById(1).orElse(null);
 
         Comentario comentario = new Comentario("¿Cuánta garantía tiene el producto?", 4, usuario, producto);

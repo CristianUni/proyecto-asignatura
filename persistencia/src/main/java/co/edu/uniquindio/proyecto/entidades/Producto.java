@@ -3,11 +3,12 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 //Entidad Producto
@@ -27,15 +28,22 @@ public class Producto implements Serializable {
 
     //Atributo nombre del producto
     @Column(nullable = false, length = 100)
+    @NotBlank(message = "El nombre del producto es obligatorio")
     private String nombre;
+
+    //Atributo nombre del producto
+    @Column(nullable = false, length = 100)
+    @NotBlank(message = "El nombre de la publicación es obligatorio")
+    private String nombrePublicacion;
 
     //Atributo unidades disponibles de un producto
     @Column(nullable = false)
-    @Positive
+    @PositiveOrZero
     private int unidades;
 
     //Atributo descripcion de un producto
     @Column(nullable = false, length = 1000)
+    @NotBlank(message = "La descripción del producto es obligatoria")
     private String descripcion;
 
     //Atributo precio del producto en el instante actual
@@ -45,11 +53,12 @@ public class Producto implements Serializable {
 
     //Atributo descuento del producto
     @Column(nullable = false, precision = 3, scale = 2)
-    @Positive
+    @PositiveOrZero
     private double descuento;
 
     //Atributo de la fecha limite del producto
     @Column(nullable = false)
+    @Future
     private LocalDate fechaLimite;
 
     //Relacion de muchos a uno con Usuario
@@ -98,12 +107,14 @@ public class Producto implements Serializable {
     private List<Categoria> categorias;
 
 
-    public Producto(String nombre, int unidades, String descripcion, double precio, double descuento, LocalDate fechaLimite) {
+    public Producto(String nombre,String nombrePublicacion, int unidades, String descripcion, double precio, double descuento, LocalDate fechaLimite, Usuario vendedor) {
         this.nombre = nombre;
+        this.nombrePublicacion = nombrePublicacion;
         this.unidades = unidades;
         this.descripcion = descripcion;
         this.precio = precio;
         this.descuento = descuento;
         this.fechaLimite = fechaLimite;
+        this.vendedor = vendedor;
     }
 }

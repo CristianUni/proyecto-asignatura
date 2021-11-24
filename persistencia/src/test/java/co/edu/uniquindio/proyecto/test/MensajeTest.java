@@ -2,7 +2,6 @@ package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Chat;
 import co.edu.uniquindio.proyecto.entidades.Mensaje;
-import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.ChatRepo;
 import co.edu.uniquindio.proyecto.repositorios.MensajeRepo;
 import org.junit.jupiter.api.Assertions;
@@ -30,7 +29,9 @@ public class MensajeTest {
     @Test
     @Sql("classpath:datos.sql")
     public void registrarTest(){
-        Chat chatGuardado = chatRepo.getById(1);
+        //Chat chatGuardado = chatRepo.getById(1);
+
+        Chat chatGuardado = chatRepo.getOne(1);
 
         Mensaje mensajeNuevo = new Mensaje("Este es un mensaje","Juan Pablo", LocalDateTime.now(),chatGuardado);
 

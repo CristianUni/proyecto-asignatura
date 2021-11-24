@@ -17,6 +17,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 //Clase para realizar la prueba unitaria del CRUD de la entidad Chat
 @DataJpaTest
@@ -44,7 +45,8 @@ public class ChatTest {
     @Sql("classpath:datos.sql")
     public void agregarTest(){
 
-        Usuario usuario = usuarioRepo.getById("123");
+        //Usuario usuario = usuarioRepo.getById("123");
+        Usuario usuario = usuarioRepo.getOne("123");
         Producto producto = productoRepo.findById(1).orElse(null);
         Mensaje mensaje = mensajeRepo.findById(1).orElse(null);
 
@@ -78,10 +80,11 @@ public class ChatTest {
     //Método test para verificar el correcto funcionamiento al momento de actualizar un dato de un chat
     @Test
     @Sql("classpath:datos.sql")
-    public void modificarTest(){
+    public void modificarTest() {
 
 
-        Chat chat = chatRepo.getById(1);
+        //Chat chat = chatRepo.getById(1);
+        Chat chat = chatRepo.getOne(1);
 
         Producto producto = productoRepo.findById(2).orElse(null);
 

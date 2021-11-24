@@ -65,8 +65,21 @@ public class UsuarioServicioTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
+    @Test
+    public void loginTest()
+    {
+        try {
+            Usuario usuario = usuarioServicio.iniciarSesion("pepe@email.com", "pepe123");
+
+            Assertions.assertNotNull(usuario);
+        } catch (Exception e) {
+            Assertions.assertTrue(false,e.getMessage());
+        }
+    }
+
+
 
 }
 

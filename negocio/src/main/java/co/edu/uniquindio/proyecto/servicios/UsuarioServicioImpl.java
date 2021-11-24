@@ -3,10 +3,8 @@ package co.edu.uniquindio.proyecto.servicios;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -139,5 +137,13 @@ public class UsuarioServicioImpl implements  UsuarioServicio{
         }
 
         return buscado.get();
+    }
+
+    @Override
+    public Usuario iniciarSesion(String email, String password) throws Exception {
+
+       return usuarioRepo.findByEmailAndPassword(email, password).orElseThrow(() -> new Exception("Los datos de autenticación son incorrecots"));
+
+
     }
 }
