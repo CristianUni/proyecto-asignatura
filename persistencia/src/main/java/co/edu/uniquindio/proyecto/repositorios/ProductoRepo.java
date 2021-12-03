@@ -1,12 +1,16 @@
 package co.edu.uniquindio.proyecto.repositorios;
 
 import co.edu.uniquindio.proyecto.dto.ProductosPorUsuario;
+import co.edu.uniquindio.proyecto.entidades.Categoria;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,4 +46,12 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer> {
 
     @Query("select avg(c.calificacion) from Producto p join p.comentarios c where p.codigo = :codigo")
     Float obtenerPromedioCalificaciones(Integer codigo);
+
+    @Query("select p from Producto p where :categoria member of p.categorias")
+    List<Producto> listarPorCategoria(Categoria categoria);
+
+
+    @Modifying
+    @Query("update Producto p set p.unidades = 0 where p.codigo = 6")
+    void actualizarUnidades() throws Exception;
 }

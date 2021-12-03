@@ -1,8 +1,10 @@
 package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -24,6 +26,8 @@ public class Mensaje implements Serializable {
 
     //Atributo que sirve para guardar el mensaje
     @Column(nullable = false, length = 450)
+    @NotBlank(message = "Ingrese un mensaje")
+    @Length(max = 450, message = "El mensaje no debe contener más de 450 caracteres")
     private String mensaje;
 
     @Column(nullable = false)

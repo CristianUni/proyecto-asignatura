@@ -10,19 +10,11 @@
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Title</title>
+
+    <title>Producto creado</title>
 </h:head>
 <h:body>
-    <h:form>
-        <h:panelGrid columns="2" cellpadding="5">
-            <p:outputLabel  for="atrr1" value="Atributo 1:" />
-            <p:inputText id="atrr1" value="#{ejemploBean.atributo1}" required="true" />
+    <h1>Producto creado exitosamente</h1>
 
-            <p:outputLabel value="Atributo 2:" />
-            <p:inputText  value="#{ejemploBean.atributo2}" />
-        </h:panelGrid>
-        <p:commandButton value="Cambiar valores" action="#{ejemploBean.cambiarValores}"
-                         update="@form" />
-    </h:form>
 </h:body>
 </html>

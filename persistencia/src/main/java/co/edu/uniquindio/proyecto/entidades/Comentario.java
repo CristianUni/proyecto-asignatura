@@ -3,12 +3,11 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 //Entidad Comentario
 
@@ -43,7 +42,7 @@ public class Comentario implements Serializable {
 
     //Atributo que sirve para guardar la calificación que asigna el usuario
     @Column(name = "calificacion", nullable = false)
-    @Positive
+    @PositiveOrZero
     @Max(value = 5, message = "La Calificacion debe ser menor o igual a 5")
     private int calificacion;
 
@@ -65,4 +64,8 @@ public class Comentario implements Serializable {
         this.producto = producto;
     }
 
+    public String getFechaEstilo(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd, MM YYYY");
+        return fechaComentario.format(DateTimeFormatter.ISO_DATE);
+    }
 }

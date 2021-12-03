@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 //Entidad Producto
@@ -29,11 +31,13 @@ public class Producto implements Serializable {
     //Atributo nombre del producto
     @Column(nullable = false, length = 100)
     @NotBlank(message = "El nombre del producto es obligatorio")
+    @Length(max = 100, message = "El nombre debe tener máximo 100 caracteres")
     private String nombre;
 
     //Atributo nombre del producto
     @Column(nullable = false, length = 100)
     @NotBlank(message = "El nombre de la publicación es obligatorio")
+    @Length(max = 100, message = "El nombre de la publicación debe tener máximo 100 caracteres")
     private String nombrePublicacion;
 
     //Atributo unidades disponibles de un producto
@@ -44,11 +48,12 @@ public class Producto implements Serializable {
     //Atributo descripcion de un producto
     @Column(nullable = false, length = 1000)
     @NotBlank(message = "La descripción del producto es obligatoria")
+    @Length(max = 1000, message = "La descripción debe tener máximo 1000 caracteres")
     private String descripcion;
 
     //Atributo precio del producto en el instante actual
     @Column(nullable = false, precision = 9, scale = 2)
-    @Positive
+    @Positive (message = "El precio debe ser positivo")
     private double precio;
 
     //Atributo descuento del producto
@@ -58,7 +63,7 @@ public class Producto implements Serializable {
 
     //Atributo de la fecha limite del producto
     @Column(nullable = false)
-    @Future
+    @Future(message = "La fecha debe ser futura")
     private LocalDate fechaLimite;
 
     //Relacion de muchos a uno con Usuario
@@ -73,7 +78,7 @@ public class Producto implements Serializable {
 
     //Lista de rutas para las imagenes
     @ToString.Exclude
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> rutaImagen;
 
     //Relacion de uno a muchos con DetalleCompra
@@ -116,5 +121,22 @@ public class Producto implements Serializable {
         this.descuento = descuento;
         this.fechaLimite = fechaLimite;
         this.vendedor = vendedor;
+    }
+
+    public String getImagenPrincipal (){
+        if(rutaImagen != null && !rutaImagen.isEmpty()){
+            return rutaImagen.get(0);
+        }
+        return "default.jpg";
+    }
+
+    public List<String> getNombreCategorias (){
+
+        List<String> nombreCategorias = new ArrayList<>();
+
+        for (Categoria categoria: categorias ) {
+            nombreCategorias.add(categoria.getNombre());
+        }
+        return nombreCategorias;
     }
 }

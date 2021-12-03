@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Subasta implements Serializable {
     private Integer codigo;
 
     //Atributo de la fecha limite en la que se realizara la subasta
+    @Future
     private LocalDateTime fechaLimite;
 
     //Relacion de muchos a uno con Producto

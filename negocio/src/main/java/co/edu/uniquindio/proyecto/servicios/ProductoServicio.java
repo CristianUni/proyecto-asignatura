@@ -1,11 +1,10 @@
 package co.edu.uniquindio.proyecto.servicios;
 
-import co.edu.uniquindio.proyecto.entidades.Categoria;
-import co.edu.uniquindio.proyecto.entidades.Compra;
-import co.edu.uniquindio.proyecto.entidades.Producto;
-import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.dto.ProductoCarrito;
+import co.edu.uniquindio.proyecto.entidades.*;
 import co.edu.uniquindio.proyecto.excepciones.ProductoNoEncontradoException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ProductoServicio {
@@ -20,7 +19,7 @@ public interface ProductoServicio {
 
     List<Producto> listarProductos(Categoria categoria) ;
 
-    void comentarProducto(String mensaje, int calificacion, Usuario usuario, Producto producto) throws Exception;
+    void comentarProducto(Comentario comentario) throws Exception;
 
     void guardarProductoFavorito(Producto producto, Usuario usuario) throws Exception;
 
@@ -32,13 +31,12 @@ public interface ProductoServicio {
 
     List<Producto> listarProductosUsuario(String codigoUsuario) throws Exception;
 
+    List<Producto> listarTodosProductos() throws Exception;
 
 
+    List<Categoria> listarCategorias();
 
+    Categoria obtenerCategoria(int id) throws Exception;
 
-
-
-
-
-
+    Compra comprarProductos(Usuario usuario, ArrayList<ProductoCarrito> productoCarritos, String medioPago) throws Exception;
 }

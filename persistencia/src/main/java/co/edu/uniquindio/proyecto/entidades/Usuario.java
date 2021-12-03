@@ -20,7 +20,9 @@ public class Usuario extends Persona implements Serializable {
 
     //Lista de telefonos del usuario
     @ElementCollection
+    @ToString.Exclude
     private List<String> telefonos;
+
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "El campo está vacío, debe ingresar un username")

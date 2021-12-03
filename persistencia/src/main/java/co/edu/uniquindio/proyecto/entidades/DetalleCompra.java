@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 
 //Entidad DetalleCompra
@@ -26,12 +27,13 @@ public class DetalleCompra implements Serializable {
 
     //Atributo que sirve para guardar las unidades que se desean comprar
     @Column(name = "unidades", nullable = false)
-    @Positive
+    @Positive(message = "Debe ingresar mínimo 1 unidad")
     @Max(value = 20, message = "Deben ser máximo 20 unidades")
     private int unidades;
 
     //Atributo que sirve para guardar el precio del producto a comprar
     @Column(name = "precioProducto", nullable = false)
+    @Positive(message = "El precio debe ser positivo")
     private double precioProducto;
 
     //Relacion de DetalleCompra con Producto de muchos a uno

@@ -11,3 +11,5 @@
 #Ignora archis del sistema Mac
 .DS_store
 /persistencia/target/
+
+web/src/main/webapp/uploads

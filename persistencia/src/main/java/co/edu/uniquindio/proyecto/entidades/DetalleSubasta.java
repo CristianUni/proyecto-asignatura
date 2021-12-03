@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -24,6 +25,7 @@ public class DetalleSubasta implements Serializable {
 
     //Atributo que sirve para guardar el valor del producto de la subasta
     @Column(nullable = false, precision = 9, scale = 2)
+    @Positive(message = "El valor debe ser positivo")
     private Double valor;
 
     //Fecha de la subasta
