@@ -137,11 +137,13 @@ public class ProductoServicioImpl implements ProductoServicio {
 
         try {
 
+            verificarExistencias(productos);
             Compra compra = new Compra();
             compra.setFechaCompra(LocalDateTime.now(ZoneId.of("America/Bogota")));
             compra.setUsuario(usuario);
             compra.setMedioPago(medioPago);
             Compra compraGuardada = compraRepo.save(compra);
+
 
             DetalleCompra dc;
             for (ProductoCarrito p : productos){
@@ -150,9 +152,6 @@ public class ProductoServicioImpl implements ProductoServicio {
                 dc.setPrecioProducto(p.getPrecio());
                 dc.setUnidades((p.getUnidades()));
                 dc.setProducto(productoRepo.findById(p.getId()).get());
-                if(productoRepo.findById(p.getId()).get().getUnidades() < p.getUnidades()){
-                    throw new Exception("El producto " + productoRepo.findById(p.getId()).get().getNombre() + " tiene " + productoRepo.findById(p.getId()).get().getUnidades() + " unidades disponibles");
-                }
 
                 int unidadesNuevas = productoRepo.findById(p.getId()).get().getUnidades() - p.getUnidades();
                 Producto productoAux = productoRepo.findById(p.getId()).orElse(null);
@@ -165,6 +164,17 @@ public class ProductoServicioImpl implements ProductoServicio {
             throw new Exception(e.getMessage());
         }
 
+    }
+
+    public boolean verificarExistencias(ArrayList<ProductoCarrito> productos) throws Exception{
+
+        for (ProductoCarrito p : productos){
+            if(productoRepo.findById(p.getId()).get().getUnidades() < p.getUnidades()){
+                throw new Exception("El producto '" + productoRepo.findById(p.getId()).get().getNombre() + "' tiene " + productoRepo.findById(p.getId()).get().getUnidades() + " unidades disponibles");
+            }
+        }
+
+        return true;
     }
 
 }

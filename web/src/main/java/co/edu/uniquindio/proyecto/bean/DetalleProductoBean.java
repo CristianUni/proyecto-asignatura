@@ -43,8 +43,6 @@ public class DetalleProductoBean implements Serializable {
     private Usuario usuarioSesion;
 
 
-
-
     @PostConstruct
     public void inicializar(){
 
@@ -55,6 +53,7 @@ public class DetalleProductoBean implements Serializable {
             producto = productoServicio.obtenerProducto(codigo);
             this.comentarios = producto.getComentarios();
         }
+
     }
 
     public void crearComentario (){

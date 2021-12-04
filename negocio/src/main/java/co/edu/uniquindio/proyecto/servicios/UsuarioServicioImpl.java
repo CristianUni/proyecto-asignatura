@@ -117,15 +117,15 @@ public class UsuarioServicioImpl implements  UsuarioServicio{
     }
 
     @Override
-    public List<Producto> listarFavoritos(String email) throws Exception {
+    public List<Producto> listarFavoritos(String codigo) throws Exception {
 
-        Optional<Usuario> buscado = buscarPorEmail(email);
+        Optional<Usuario> buscado = usuarioRepo.findById(codigo);
         if (buscado.isEmpty())
         {
             throw new Exception("El correo no existe");
         }
 
-        return usuarioRepo.obtenerProductosFavoritos(email);
+        return usuarioRepo.obtenerProductosFavoritos(codigo);
     }
 
     @Override
@@ -144,6 +144,37 @@ public class UsuarioServicioImpl implements  UsuarioServicio{
 
        return usuarioRepo.findByEmailAndPassword(email, password).orElseThrow(() -> new Exception("Los datos de autenticación son incorrecots"));
 
+    }
 
+    @Override
+    public void agregarFavorito(Producto p, String id) throws Exception {
+
+        try {
+            Usuario usuario = usuarioRepo.findById(id).get();
+            if(!usuario.getProductosFavoritos().contains(p)){
+                usuario.getProductosFavoritos().add(p);
+                usuarioRepo.save(usuario);
+            } else {
+                throw new Exception("El producto ya está en favoritos");
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+    }
+
+    @Override
+    public void eliminarFavorito(Producto p, String id) throws Exception {
+        try {
+            Usuario usuario = usuarioRepo.findById(id).get();
+            if(usuario.getProductosFavoritos().contains(p)){
+                usuario.getProductosFavoritos().remove(p);
+                usuarioRepo.save(usuario);
+            } else {
+                throw new Exception("El producto ya no está en favoritos");
+            }
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 }

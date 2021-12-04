@@ -1,18 +1,21 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<ui:composition template="WEB-INF/template.xhtml">
 
-    <ui:define name="title">Inicio</ui:define>
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Favoritos</ui:define>
     <ui:define name="content">
-        <h:form>
-            <p:dataView value="#{inicioBean.productos}" paginator="true" rows="10" var="producto"  gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+        <h2 align="center">Productos Favoritos</h2>
+        <h:form id="form">
+            <p:dataView value="#{seguridadBean.productosFavoritos}" paginator="true" rows="3" var="producto"  gridIcon="pi pi-th-large" listIcon="pi pi-bars">
                 <p:dataViewGridItem>
                     <div class="card" >
                         <img src="/uploads/#{producto.imagenPrincipal}" class="card-img-top" alt="..." />
@@ -40,13 +43,12 @@
 
                                     <h:outputText value="Precio:" />
                                     <h:outputText value="$ #{producto.precio}" />
-                                    <h:outputText value="Categorías:" />
-                                    <h:outputLabel value="#{producto.nombreCategorias}" />
+
                                 </h:panelGrid>
                             </p:outputPanel>
                         </div>
                         <div class="col-lg-2 col-md-1 align-self-center" >
-                            <p:commandButton value="Ver detalle" styleClass="ui-button-raised" icon="pi pi-arrow-right" iconPos="right" action="#{inicioBean.irADetalle(producto.codigo)}" />
+                            <p:commandButton  styleClass="ui-button-raised" icon="pi pi-trash" iconPos="right" action="#{seguridadBean.eliminarFavorito(producto)}" update="@form" />
 
                         </div>
                     </div>

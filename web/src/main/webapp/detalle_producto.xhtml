@@ -31,6 +31,11 @@
                         <h:form class="mt-4" rendered="#{seguridadBean.autenticado}">
                             <p:commandButton value="Añadir al carrito" icon="pi pi-shopping-cart" update="@form" action="#{seguridadBean.agregarAlCarrito(detalleProductoBean.producto.codigo, detalleProductoBean.producto.precio, detalleProductoBean.producto.nombre, detalleProductoBean.producto.imagenPrincipal)}" />
                             <p:growl for="add-cart" showDetail="true" />
+
+
+                            <p:commandButton style="margin-left: 10px" value="Añadir a favoritos" icon="pi pi-heart" update="@form" action="#{seguridadBean.agregarFavorito(detalleProductoBean.producto)}" />
+                            <p:growl for="favorito-msj" showDetail="true" />
+
                         </h:form>
                     </div>
                     <div class="box">

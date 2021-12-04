@@ -50,12 +50,38 @@ public class SeguridadBean implements Serializable {
     @Setter
     private List<Producto> misProductos;
 
+    @Getter @Setter
+    private List<Producto> productosFavoritos;
+
 
     @PostConstruct
     public void inicializar(){
         this.subTotal = 0;
         productosCarrito = new ArrayList<>();
         this.medioPago = "";
+
+        if(usuarioSesion != null)
+        {
+            actualizarListaProductosPublicados();
+            actualizarListaProductosFavoritos();
+        }
+
+    }
+
+    private void actualizarListaProductosFavoritos() {
+        try {
+            this.productosFavoritos = usuarioServicio.listarFavoritos(usuarioSesion.getCodigo());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean verificarFavortio(Producto producto) {
+
+        if (usuarioSesion.getProductosFavoritos().contains(producto)){
+            return true;
+        }
+        return false;
 
     }
 
@@ -66,8 +92,8 @@ public class SeguridadBean implements Serializable {
                 usuarioSesion = usuarioServicio.iniciarSesion(email, password);
                 autenticado=true;
 
-                this.misProductos = productoServicio.obtenerMisProductos(usuarioSesion.getCodigo());
-                System.out.println(misProductos + "2");
+                actualizarListaProductosPublicados();
+                actualizarListaProductosFavoritos();
 
                 return "/index.xhtml?faces-redirect=true";
             } catch (Exception e) {
@@ -76,6 +102,14 @@ public class SeguridadBean implements Serializable {
             }
         }
         return null;
+    }
+
+    public void actualizarListaProductosPublicados() {
+        try {
+            this.misProductos = productoServicio.obtenerMisProductos(usuarioSesion.getCodigo());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String cerrarSesion(){
@@ -112,6 +146,7 @@ public class SeguridadBean implements Serializable {
                 productoServicio.comprarProductos(usuarioSesion, productosCarrito, medioPago);
                 productosCarrito.clear();
                 subTotal = 0;
+                actualizarListaProductosPublicados();
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Compra realizada con éxito");
                 FacesContext.getCurrentInstance().addMessage("compra-msj", fm);
             } catch (Exception e) {
@@ -122,12 +157,37 @@ public class SeguridadBean implements Serializable {
         }
     }
 
-   /* public void listarProductos(){
+    public void agregarFavorito(Producto productoFavorito) throws Exception{
         try {
-            misProductos = productoServicio.listarProductosUsuario(usuarioSesion.getCodigo());
-        } catch (Exception e) {
-            e.printStackTrace();
+            if(productoFavorito != null){
+                System.out.println("entró a prod");
+                usuarioServicio.agregarFavorito(productoFavorito, usuarioSesion.getCodigo());
+                actualizarListaProductosFavoritos();
+
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Producto agregado a favoritos");
+                FacesContext.getCurrentInstance().addMessage("favorito-msj", fm);
+
+            }
+        }catch (Exception e){
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "El producto ya está en favoritos");
+            FacesContext.getCurrentInstance().addMessage("favorito-msj", fm);
         }
-    }*/
+    }
+
+    public void eliminarFavorito(Producto productoFavorito) throws Exception{
+        try {
+            if(productoFavorito != null){
+                usuarioServicio.eliminarFavorito(productoFavorito, usuarioSesion.getCodigo());
+                actualizarListaProductosFavoritos();
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Producto agregado a favoritos");
+                FacesContext.getCurrentInstance().addMessage("favorito-msj", fm);
+
+            }
+        }catch (Exception e){
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "El productro ya está en favoritos");
+            FacesContext.getCurrentInstance().addMessage("favorito-msj", fm);
+        }
+    }
+
 
 }

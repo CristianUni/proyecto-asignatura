@@ -8,6 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 //Entidad hijo Usuario
@@ -67,5 +68,6 @@ public class Usuario extends Persona implements Serializable {
     public Usuario(String codigo, String nombre, String email, String password, String username) {
         super(codigo, nombre, email, password);
         this.username = username;
+
     }
 }

@@ -21,7 +21,7 @@
     <div id="header">
         <div class="px-3 py-2 bg-dark text-white">
             <div class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start" >
                     <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
                         <span class="pi pi-shopping-cart" style="font-size: 2rem;margin-right: 5px"/>
                         <span class="fs-4">UniShop</span>
@@ -47,10 +47,16 @@
                             </a>
                         </li>
 
-                        <li jsf:rendered="#{seguridadBean.autenticado}">
-                            <a href="/usuario/misProductos.xhtml" class="nav-link text-white" >
+                        <li jsf:rendered="#{seguridadBean.autenticado}" >
+                            <a href="/usuario/misProductos.xhtml"  class="nav-link text-white" >
                                 <i class="pi pi-list d-block mx-auto mb-1 icon-menu"/>
                                 Mis productos
+                            </a>
+                        </li >
+                        <li jsf:rendered="#{seguridadBean.autenticado}" >
+                            <a href="/usuario/productos_favoritos.xhtml"  class="nav-link text-white" >
+                                <i class="pi pi-heart d-block mx-auto mb-1 icon-menu"/>
+                                Favoritos
                             </a>
                         </li >
                         <li jsf:rendered="#{seguridadBean.autenticado}">

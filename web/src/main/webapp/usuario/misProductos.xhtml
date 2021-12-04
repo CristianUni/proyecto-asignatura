@@ -13,12 +13,21 @@
 <ui:composition template="/WEB-INF/template.xhtml">
     <ui:define name="title">Mis productos</ui:define>
     <ui:define name="content">
+        <h2 align="center">Mis Productos Publicados</h2>
+
+        <h:form>
+            <div class="text-end">
+                <p:commandButton update="@form" icon="pi pi-refresh" action="#{seguridadBean.actualizarListaProductosPublicados}" styleClass="btn btn-white border-secondary bg-white btn-md mb-2"/>
+            </div>
+        </h:form>
 
         <h:form id="form">
+
             <p:dataView var="producto" value="#{seguridadBean.misProductos}"
                         rows="12" paginator="true" rowsPerPageTemplate="6,12,16"
                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+
 
                 <p:dataViewGridItem>
 
@@ -31,6 +40,7 @@
                 </p:dataViewGridItem >
 
                 <p:dataViewListItem >
+
                     <div class="row d-flex item-pro"  >
                         <div class="col-lg-2 col-md-1" style="text-align: center" >
                             <p:graphicImage url="/uploads/#{producto.imagenPrincipal}" styleClass="imagen-producto" />

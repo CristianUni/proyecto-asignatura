@@ -15,13 +15,15 @@ public interface UsuarioServicio {
 
     List<Usuario> listarUsuarios() ;
 
-    List<Producto> listarFavoritos (String email) throws Exception;
+    List<Producto> listarFavoritos (String codigo) throws Exception;
 
     Usuario obtenerUsuario (String codigo ) throws Exception;
     
     Usuario iniciarSesion(String email, String password) throws Exception;
 
+    void agregarFavorito(Producto p, String id) throws Exception;
 
+    void eliminarFavorito(Producto p, String id) throws Exception;
 
 
 
