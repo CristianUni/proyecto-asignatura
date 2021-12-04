@@ -54,4 +54,7 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer> {
     @Modifying
     @Query("update Producto p set p.unidades = 0 where p.codigo = 6")
     void actualizarUnidades() throws Exception;
+
+    @Query("select p from Producto p where p.vendedor.codigo = :codigo")
+    List<Producto> obtenerMisProductos(String codigo);
 }

@@ -31,8 +31,8 @@ public class Compra implements Serializable {
 
     //Atributo que sirve para guardar el medio por el cual se realiza el pago
     @NotBlank(message = "El campo Pago es obligatorio")
-    @Size(max = 10, message = "El tamaño maximo debe ser de 10 caracteres")
-    @Column(name = "medioPago", length = 10, nullable = false)
+    @Size(max = 50)
+    @Column(name = "medioPago", length = 50, nullable = false)
     private String medioPago;
 
 

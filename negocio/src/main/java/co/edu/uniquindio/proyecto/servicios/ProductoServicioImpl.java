@@ -118,6 +118,11 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
+    public List<Producto> obtenerMisProductos(String codigo) throws Exception {
+        return productoRepo.obtenerMisProductos(codigo);
+    }
+
+    @Override
     public List<Categoria> listarCategorias() {
         return categoriaRepo.findAll();
     }
@@ -136,7 +141,6 @@ public class ProductoServicioImpl implements ProductoServicio {
             compra.setFechaCompra(LocalDateTime.now(ZoneId.of("America/Bogota")));
             compra.setUsuario(usuario);
             compra.setMedioPago(medioPago);
-
             Compra compraGuardada = compraRepo.save(compra);
 
             DetalleCompra dc;
@@ -147,23 +151,16 @@ public class ProductoServicioImpl implements ProductoServicio {
                 dc.setUnidades((p.getUnidades()));
                 dc.setProducto(productoRepo.findById(p.getId()).get());
                 if(productoRepo.findById(p.getId()).get().getUnidades() < p.getUnidades()){
-                    throw new Exception("El producto " + productoRepo.findById(p.getId()).get().getNombre() + " solo tiene disponible " + productoRepo.findById(p.getId()).get().getUnidades() + " unidades");
+                    throw new Exception("El producto " + productoRepo.findById(p.getId()).get().getNombre() + " tiene " + productoRepo.findById(p.getId()).get().getUnidades() + " unidades disponibles");
                 }
-                //verificar que las unidades del producto si esten disponibles
-                detalleCompraRepo.save(dc);
+
                 int unidadesNuevas = productoRepo.findById(p.getId()).get().getUnidades() - p.getUnidades();
                 Producto productoAux = productoRepo.findById(p.getId()).orElse(null);
-                productoAux.setUnidades(0);
-
-                System.out.println(productoAux);
+                productoAux.setUnidades(unidadesNuevas);
                 productoRepo.save(productoAux);
-                System.out.println("pasó");
-                //productoRepo.actualizarUnidades();
-
+                detalleCompraRepo.save(dc);
             }
-
             return compraGuardada;
-
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

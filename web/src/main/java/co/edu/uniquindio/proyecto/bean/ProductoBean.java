@@ -58,6 +58,9 @@ public class ProductoBean implements Serializable {
     @Autowired
     private CiudadServicio ciudadServicio;
 
+    @Getter @Setter
+    private ArrayList<String> mediosPago;
+
     @PostConstruct
     public void inicializar(){
 
@@ -65,6 +68,14 @@ public class ProductoBean implements Serializable {
         this.imagenes = new ArrayList<>();
         this.categorias = productoServicio.listarCategorias();
         this.ciudades = ciudadServicio.listarCiudades();
+        mediosPago = new ArrayList<>();
+        mediosPago.add("PSE");
+        mediosPago.add("Tarjeta de crédio");
+        mediosPago.add("Tarjera débito");
+        mediosPago.add("Efecty");
+        mediosPago.add("Baloto");
+        mediosPago.add("PayPal");
+        mediosPago.add("PayU");
     }
 
     public void crearProducto(){

@@ -1,7 +1,9 @@
 package co.edu.uniquindio.proyecto.bean;
 
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
+import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
 import co.edu.uniquindio.proyecto.servicios.CiudadServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import lombok.Getter;
@@ -20,7 +22,8 @@ import java.util.List;
 @ViewScoped
 public class UsuarioBean implements Serializable {
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Usuario usuario;
 
     @Autowired
@@ -29,16 +32,17 @@ public class UsuarioBean implements Serializable {
     @Autowired
     private CiudadServicio ciudadServicio;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<Ciudad> ciudades;
 
 
     @PostConstruct
     public void inicializar()
     {
-
         usuario = new Usuario();
         ciudades = ciudadServicio.listarCiudades();
+
     }
 
     public void registrarUsuario ()

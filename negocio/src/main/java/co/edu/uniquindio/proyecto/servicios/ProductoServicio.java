@@ -33,6 +33,7 @@ public interface ProductoServicio {
 
     List<Producto> listarTodosProductos() throws Exception;
 
+    List<Producto> obtenerMisProductos(String codigo) throws Exception;
 
     List<Categoria> listarCategorias();
 

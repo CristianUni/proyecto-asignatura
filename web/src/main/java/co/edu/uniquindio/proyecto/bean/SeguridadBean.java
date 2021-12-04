@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto.bean;
 
 import co.edu.uniquindio.proyecto.dto.ProductoCarrito;
+import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
@@ -15,6 +16,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Scope("session")
 @Component
@@ -41,10 +43,20 @@ public class SeguridadBean implements Serializable {
     @Autowired
     private ProductoServicio productoServicio;
 
+    @Getter @Setter
+    private String medioPago;
+
+    @Getter
+    @Setter
+    private List<Producto> misProductos;
+
+
     @PostConstruct
     public void inicializar(){
         this.subTotal = 0;
         productosCarrito = new ArrayList<>();
+        this.medioPago = "";
+
     }
 
     public String iniciarSesion(){
@@ -53,6 +65,10 @@ public class SeguridadBean implements Serializable {
             try {
                 usuarioSesion = usuarioServicio.iniciarSesion(email, password);
                 autenticado=true;
+
+                this.misProductos = productoServicio.obtenerMisProductos(usuarioSesion.getCodigo());
+                System.out.println(misProductos + "2");
+
                 return "/index.xhtml?faces-redirect=true";
             } catch (Exception e) {
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
@@ -91,9 +107,9 @@ public class SeguridadBean implements Serializable {
     }
 
     public void comprar(){
-        if(usuarioServicio != null && !productosCarrito.isEmpty()){
+        if(usuarioServicio != null && !productosCarrito.isEmpty() && !medioPago.isEmpty()){
             try {
-                productoServicio.comprarProductos(usuarioSesion, productosCarrito, "PSE");
+                productoServicio.comprarProductos(usuarioSesion, productosCarrito, medioPago);
                 productosCarrito.clear();
                 subTotal = 0;
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Compra realizada con éxito");
@@ -105,5 +121,13 @@ public class SeguridadBean implements Serializable {
             }
         }
     }
+
+   /* public void listarProductos(){
+        try {
+            misProductos = productoServicio.listarProductosUsuario(usuarioSesion.getCodigo());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
 
 }
