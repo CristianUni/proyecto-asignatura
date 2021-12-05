@@ -22,4 +22,9 @@ public class CategoriaServicioImpl implements CategoriaServicio{
     public Categoria obtenerCategoria(Integer id) throws Exception {
         return categoriaRepo.findById(id).orElseThrow(() -> new Exception("El id no corresponde a ninguna categoría"));
     }
+
+    @Override
+    public Categoria obtenerCatPorNombre(String nombre) throws Exception {
+        return categoriaRepo.buscarPorNombre(nombre);
+    }
 }

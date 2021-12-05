@@ -30,11 +30,24 @@ public class busquedaBean implements Serializable {
     @Autowired
     private ProductoServicio productoServicio;
 
+    @Setter @Getter
+    @Value("#{param['categoria']}")
+    private String filtroCategoria;
+
+    @Getter @Setter
+    private boolean categoria = false;
+
     @PostConstruct
     public void inicializar(){
-        if (busquedaParam != null && !busquedaParam.isEmpty()){
-            productos = productoServicio.buscarProductos(busquedaParam, null);
 
+        if (filtroCategoria != null && !filtroCategoria.isEmpty()){
+            productos = productoServicio.buscarProductos(busquedaParam, filtroCategoria);
+            categoria = true;
+        }else {
+            if (busquedaParam != null && !busquedaParam.isEmpty()){
+                productos = productoServicio.buscarProductos(busquedaParam, null);
+                categoria = false;
+            }
         }
     }
 
@@ -42,4 +55,7 @@ public class busquedaBean implements Serializable {
         return "resultados_busqueda?faces-redirect=true&amp;busqueda=" + busqueda;
     }
 
+    public String buscarPorCategoria(){
+        return "resultados_busqueda?faces-redirect=true&amp;categoria=" + filtroCategoria;
+    }
 }

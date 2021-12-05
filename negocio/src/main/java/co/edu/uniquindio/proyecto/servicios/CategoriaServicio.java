@@ -11,4 +11,6 @@ public interface CategoriaServicio {
 
     Categoria obtenerCategoria(Integer id) throws Exception;
 
+    Categoria obtenerCatPorNombre(String nombre) throws Exception;
+
 }
