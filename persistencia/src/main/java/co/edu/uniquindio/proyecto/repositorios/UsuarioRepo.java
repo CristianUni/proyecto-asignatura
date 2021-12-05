@@ -25,6 +25,9 @@ public interface UsuarioRepo extends JpaRepository<Usuario, String> {
 
     Optional<Usuario> findByUsername (String username);
 
+    @Query("select p from Compra c join c.detalleCompraList d join d.producto p join c.usuario u where u.codigo = :codigo")
+    List<Producto> obtenerProductosComprados(String codigo);
+
     @Query("select p from Usuario u, IN (u.productosFavoritos) p where u.codigo = :codigo")
     List<Producto> obtenerProductosFavoritos(String codigo);
 

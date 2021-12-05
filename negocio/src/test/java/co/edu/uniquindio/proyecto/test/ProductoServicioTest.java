@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @SpringBootTest(classes = NegocioApplication.class)
@@ -42,4 +43,9 @@ public class ProductoServicioTest {
 
     }
 
+    @Test
+    public void obtenerCompradosTest() throws Exception {
+        List<Producto> comprados = usuarioServicio.listarComprados("123");
+        comprados.forEach(System.out::println);
+    }
 }

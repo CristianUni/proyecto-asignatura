@@ -117,6 +117,18 @@ public class UsuarioServicioImpl implements  UsuarioServicio{
     }
 
     @Override
+    public List<Producto> listarComprados(String codigo) throws Exception {
+
+        Optional<Usuario> buscado = usuarioRepo.findById(codigo);
+        if (buscado.isEmpty())
+        {
+            throw new Exception("El correo no existe");
+        }
+
+        return usuarioRepo.obtenerProductosComprados(codigo);
+    }
+
+    @Override
     public List<Producto> listarFavoritos(String codigo) throws Exception {
 
         Optional<Usuario> buscado = usuarioRepo.findById(codigo);
