@@ -70,7 +70,7 @@ public class ProductoBean implements Serializable {
         this.ciudades = ciudadServicio.listarCiudades();
         mediosPago = new ArrayList<>();
         mediosPago.add("PSE");
-        mediosPago.add("Tarjeta de crédio");
+        mediosPago.add("Tarjeta de crédito");
         mediosPago.add("Tarjera débito");
         mediosPago.add("Efecty");
         mediosPago.add("Baloto");

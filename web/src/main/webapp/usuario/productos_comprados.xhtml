@@ -18,7 +18,7 @@
             <p:dataView value="#{seguridadBean.productosComprados}" paginator="true" rows="3" var="producto"  gridIcon="pi pi-th-large" listIcon="pi pi-bars">
                 <p:dataViewGridItem>
                     <div class="card" >
-                        <img src="/uploads/#{producto.}" class="card-img-top" alt="..." />
+                        <img src="/uploads/#{producto.imagenPrincipal}" class="card-img-top" alt="..." />
 
                         <div class="card-body">
                             <h5 class="card-title">#{producto.nombrePublicacion}</h5>
