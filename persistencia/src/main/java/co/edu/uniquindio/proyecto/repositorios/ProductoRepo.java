@@ -50,7 +50,6 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer> {
     @Query("select p from Producto p where :categoria member of p.categorias")
     List<Producto> listarPorCategoria(Categoria categoria);
 
-
     @Modifying
     @Query("update Producto p set p.unidades = 0 where p.codigo = 6")
     void actualizarUnidades() throws Exception;
