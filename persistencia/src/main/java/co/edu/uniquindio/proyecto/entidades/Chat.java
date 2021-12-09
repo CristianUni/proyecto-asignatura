@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,6 +35,7 @@ public class Chat implements Serializable {
     //Relación uno a muchos con la entidad Mensaje
     @ToString.Exclude
     @OneToMany(mappedBy = "chat")
+    @JsonIgnore
     private List<Mensaje> mensajes;
 
 

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,11 +35,13 @@ public class Ciudad implements Serializable {
     //Relación entre la entidad Ciudad y Usuario, donde indica que la ciudad tiene una lista de usuarios
     @ToString.Exclude
     @OneToMany(mappedBy = "ciudad")
+    @JsonIgnore
     private List<Usuario> usuarios;
 
     //Relación entre la entidad Ciudad y Producto, donde indica que la ciudad tiene una lista de productos
     @ToString.Exclude
     @OneToMany(mappedBy = "ciudad")
+    @JsonIgnore
     private List<Producto> productos;
 
     //Constructor sobrecargado de la entidad que recibe por parámetro el nombre

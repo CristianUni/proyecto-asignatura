@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ public class Categoria implements Serializable {
     //Relación muchos a muchos con la entidad Producto
     @ToString.Exclude
     @ManyToMany(mappedBy = "categorias")
+    @JsonIgnore
     private List<Producto> productos;
 
     //Constructor sobrecargado que recibe por parámetro el nombre de la categoría

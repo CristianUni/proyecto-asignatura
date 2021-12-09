@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -61,6 +62,11 @@ public class Producto implements Serializable {
     @PositiveOrZero
     private double descuento;
 
+    //Atributo descuento del producto
+    @Column(nullable = false, precision = 3, scale = 2)
+    @PositiveOrZero
+    private double descuentoVisible = 0;
+
     //Atributo de la fecha limite del producto
     @Column(nullable = false)
     @Future(message = "La fecha debe ser futura")
@@ -84,31 +90,37 @@ public class Producto implements Serializable {
     //Relacion de uno a muchos con DetalleCompra
     @ToString.Exclude
     @OneToMany(mappedBy = "producto")
+    @JsonIgnore
     private List<DetalleCompra> detalleCompras;
 
     //Relacion de uno a muchos con Subasta
     @ToString.Exclude
     @OneToMany(mappedBy = "producto")
+    @JsonIgnore
     private List<Subasta> subastas;
 
     //Relacion de uno a muchos con Comentario
     @ToString.Exclude
     @OneToMany(mappedBy = "producto")
+    @JsonIgnore
     private List<Comentario> comentarios;
 
     //Relacion de uno a muchos con Chat
     @ToString.Exclude
     @OneToMany(mappedBy = "producto")
+    @JsonIgnore
     private List<Chat> chats;
 
     //Relacion de muchos a muchos con Usuario
     @ToString.Exclude
     @ManyToMany(mappedBy = "productosFavoritos")
+    @JsonIgnore
     private List<Usuario> usuarios;
 
     //Relacion de muchos a muchos con Categoria
     @ToString.Exclude
     @ManyToMany
+    @JsonIgnore
     private List<Categoria> categorias;
 
 
@@ -121,6 +133,7 @@ public class Producto implements Serializable {
         this.descuento = descuento;
         this.fechaLimite = fechaLimite;
         this.vendedor = vendedor;
+
     }
 
     public String getImagenPrincipal (){
@@ -128,6 +141,10 @@ public class Producto implements Serializable {
             return rutaImagen.get(0);
         }
         return "default.jpg";
+    }
+
+    public double getDescuentoVisible(){
+        return  (precio-(precio*(descuento/100)));
     }
 
     public List<String> getNombreCategorias (){

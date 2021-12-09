@@ -17,13 +17,13 @@
         <h2 jsf:rendered="#{busquedaBean.categoria}">Resultados de búsqueda para categoria '#{busquedaBean.filtroCategoria}'</h2>
 
         <h:form>
-            <p:dataView value="#{busquedaBean.productos}" paginator="true" rows="3" var="producto"  gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+            <p:dataView value="#{busquedaBean.productos}" paginator="true" rows="10" var="producto"  gridIcon="pi pi-th-large" listIcon="pi pi-bars">
                 <p:dataViewGridItem>
                     <div class="card" >
                         <img src="/uploads/#{producto.imagenPrincipal}" class="card-img-top" alt="..." />
 
                         <div class="card-body">
-                            <h5 class="card-title">#{producto.nombre}</h5>
+                            <h5 class="card-title">#{producto.nombrePublicacion}</h5>
                             <p class="card-text">#{producto.precio}</p>
                             <hr />
                             <p:commandButton value="Ver detalle" styleClass="ui-button-raised" icon="pi pi-arrow-right" iconPos="right" action="#{inicioBean.irADetalle(producto.codigo)}" />
@@ -41,10 +41,18 @@
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Nombre:" />
-                                    <h:outputText value="#{producto.nombre}" style="font-weight:bold" />
+                                    <h:outputText value="#{producto.nombrePublicacion}" style="font-weight:bold" />
 
-                                    <h:outputText value="Precio:" />
-                                    <h:outputText value="$ #{producto.precio}" />
+                                    <div jsf:rendered="#{producto.descuento > 0}">
+                                        <h:outputText value="Precio:" />
+                                        <del><h:outputText value="$#{producto.precio}" /></del>
+                                        <h:outputText value=" $#{producto.descuentoVisible}"/>
+                                    </div>
+                                    <div jsf:rendered="#{producto.descuento == 0}">
+                                        <h:outputText value="Precio:" />
+                                        <h:outputText value="$ #{producto.precio}" />
+                                    </div>
+                                    <div/>
                                     <h:outputText value="Categorías:" />
                                     <h:outputLabel value="#{producto.nombreCategorias}" />
                                 </h:panelGrid>

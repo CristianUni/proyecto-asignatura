@@ -40,4 +40,10 @@ public interface ProductoServicio {
     Categoria obtenerCategoria(int id) throws Exception;
 
     Compra comprarProductos(Usuario usuario, ArrayList<ProductoCarrito> productoCarritos, String medioPago) throws Exception;
+
+    List<Producto> listarRangoPrecio(double min, double max) throws Exception;
+
+    List<Producto> listarPorCiudad(String nombreCiudad) throws Exception;
+
+    List<Producto> listarRangoUnidades(int min, int max) throws Exception;
 }
