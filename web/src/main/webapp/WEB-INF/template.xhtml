@@ -40,6 +40,12 @@
                                 Categorias
                             </a>
                         </li>
+                        <li >
+                            <a href="/lista_subastas.xhtml" class="nav-link text-white" >
+                                <i class="pi pi-euro d-block mx-auto mb-1 icon-menu" />
+                                Subastas
+                            </a>
+                        </li>
                         <li jsf:rendered="#{seguridadBean.autenticado}">
                             <a href="/usuario/crear_producto.xhtml" class="nav-link text-white" >
                                 <i class="pi pi-save d-block mx-auto mb-1 icon-menu" />
@@ -60,7 +66,7 @@
                             </a>
                         </li >
                         <li jsf:rendered="#{seguridadBean.autenticado}">
-                            <a href="#" class="nav-link text-white" >
+                            <a href="/usuario/productos_comprados.xhtml" class="nav-link text-white" >
                                 <i class="pi pi-dollar d-block mx-auto mb-1 icon-menu"/>
                                 Compras
                             </a>

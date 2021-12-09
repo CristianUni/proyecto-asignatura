@@ -17,6 +17,8 @@ public interface UsuarioServicio {
 
     List<Producto> listarFavoritos (String codigo) throws Exception;
 
+    List<Producto> listarComprados (String codigo) throws Exception;
+
     Usuario obtenerUsuario (String codigo ) throws Exception;
     
     Usuario iniciarSesion(String email, String password) throws Exception;

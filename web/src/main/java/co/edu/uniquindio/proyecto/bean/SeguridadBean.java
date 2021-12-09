@@ -55,6 +55,9 @@ public class SeguridadBean implements Serializable {
     @Getter @Setter
     private List<Producto> productosFavoritos;
 
+    @Getter @Setter
+    private List<Producto> productosComprados;
+
 
     @PostConstruct
     public void inicializar(){
@@ -66,10 +69,18 @@ public class SeguridadBean implements Serializable {
         {
             actualizarListaProductosPublicados();
             actualizarListaProductosFavoritos();
+            actualizarListaProductosComprados();
         }
 
     }
-
+    private void actualizarListaProductosComprados() {
+        try {
+            this.productosComprados = usuarioServicio.listarComprados(usuarioSesion.getCodigo());
+            this.productosComprados.forEach(System.out::println);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private void actualizarListaProductosFavoritos() {
         try {
             this.productosFavoritos = usuarioServicio.listarFavoritos(usuarioSesion.getCodigo());
@@ -96,6 +107,7 @@ public class SeguridadBean implements Serializable {
 
                 actualizarListaProductosPublicados();
                 actualizarListaProductosFavoritos();
+                actualizarListaProductosComprados();
 
                 return "/index.xhtml?faces-redirect=true";
             } catch (Exception e) {
@@ -157,6 +169,7 @@ public class SeguridadBean implements Serializable {
                 productosCarrito.clear();
                 subTotal = 0;
                 actualizarListaProductosPublicados();
+                actualizarListaProductosComprados();
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Compra realizada con éxito");
                 FacesContext.getCurrentInstance().addMessage("compra-msj", fm);
             } catch (Exception e) {
