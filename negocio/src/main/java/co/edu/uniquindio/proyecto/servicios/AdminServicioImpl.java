@@ -35,4 +35,9 @@ public class AdminServicioImpl implements AdminServicio{
     public Integer cantProductosPorCategorias(Integer codigo){
         return adminRepo.cantProductosPorCategorias(codigo);
     }
+
+    @Override
+    public Integer ventasMes(Integer anio, Integer mes){
+        return adminRepo.ventasMes(anio, mes);
+    }
 }

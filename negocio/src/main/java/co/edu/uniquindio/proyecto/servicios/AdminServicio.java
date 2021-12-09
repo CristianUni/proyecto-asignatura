@@ -11,4 +11,6 @@ public interface AdminServicio {
     Integer cantVentas();
 
     Integer cantProductosPorCategorias(Integer codigo);
+
+    Integer ventasMes(Integer anio, Integer mes);
 }

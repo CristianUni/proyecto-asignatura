@@ -107,16 +107,14 @@ public class ReportesBean implements Serializable {
         ChartData data = new ChartData();
 
         BarChartDataSet barDataSet = new BarChartDataSet();
-        barDataSet.setLabel("My First Dataset");
+        barDataSet.setLabel("Ventas");
 
         List<Number> values = new ArrayList<>();
-        values.add(65);
-        values.add(59);
-        values.add(80);
-        values.add(81);
-        values.add(56);
-        values.add(55);
-        values.add(40);
+        values.add(adminServicio.ventasMes(2021,8));
+        values.add(adminServicio.ventasMes(2021,9));
+        values.add(adminServicio.ventasMes(2021,10));
+        values.add(adminServicio.ventasMes(2021,11));
+        values.add(adminServicio.ventasMes(2021,12));
         barDataSet.setData(values);
 
         List<String> bgColor = new ArrayList<>();
@@ -164,7 +162,7 @@ public class ReportesBean implements Serializable {
 
         Title title = new Title();
         title.setDisplay(true);
-        title.setText("Bar Chart");
+        title.setText("Grafico");
         options.setTitle(title);
 
         Legend legend = new Legend();
