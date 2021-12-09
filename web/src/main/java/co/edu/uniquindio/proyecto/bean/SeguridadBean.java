@@ -1,8 +1,7 @@
 package co.edu.uniquindio.proyecto.bean;
 
-import co.edu.uniquindio.proyecto.dto.EmailService;
+import co.edu.uniquindio.proyecto.servicios.EmailService;
 import co.edu.uniquindio.proyecto.dto.ProductoCarrito;
-import co.edu.uniquindio.proyecto.email.EmailBody;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
@@ -158,12 +157,8 @@ public class SeguridadBean implements Serializable {
         if(usuarioServicio != null && !productosCarrito.isEmpty() && !medioPago.isEmpty()){
             try {
 
-                EmailBody emailBody = new EmailBody();
-                emailBody.setEmail("jhooiineer@gmail.com");
-                emailBody.setContent("Mensaje de prueba");
-                emailBody.setSubject("Prueba");
-                EmailService emailService = new EmailService();
-                emailService.sendEmail(emailBody);
+                //EmailService emailService = new EmailService();
+                //emailService.("kristianalexander2014@gmail.com","Prueba","Mensaje de prueba");
                 productoServicio.comprarProductos(usuarioSesion, productosCarrito, medioPago);
 
                 productosCarrito.clear();
