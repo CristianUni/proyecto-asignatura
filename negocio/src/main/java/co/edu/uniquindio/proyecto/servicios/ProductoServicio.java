@@ -40,4 +40,6 @@ public interface ProductoServicio {
     Categoria obtenerCategoria(int id) throws Exception;
 
     Compra comprarProductos(Usuario usuario, ArrayList<ProductoCarrito> productoCarritos, String medioPago) throws Exception;
+
+    Integer cantProductos();
 }

@@ -56,4 +56,7 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer> {
 
     @Query("select p from Producto p where p.vendedor.codigo = :codigo")
     List<Producto> obtenerMisProductos(String codigo);
+
+    @Query("select count(p) from Producto p")
+    Integer cantProductos();
 }

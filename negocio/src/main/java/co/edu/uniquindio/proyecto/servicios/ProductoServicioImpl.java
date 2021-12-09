@@ -100,6 +100,10 @@ public class ProductoServicioImpl implements ProductoServicio {
     public void comprarProductos(Compra compra) throws Exception {
 
     }
+    @Override
+    public Integer cantProductos(){
+        return productoRepo.cantProductos();
+    }
 
     @Override
     public List<Producto> buscarProductos(String nombreProducto, String filtro) {
