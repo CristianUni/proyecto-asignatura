@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto.servicios;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +40,9 @@ public class UsuarioServicioImpl implements  UsuarioServicio{
         if (buscado.isPresent()){
             throw new Exception("El username del usuario ya existe.");
         }
+
+        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        u.setPassword(passwordEncryptor.encryptPassword(u.getPassword()));
 
         return usuarioRepo.save(u);
     }
@@ -153,8 +157,14 @@ public class UsuarioServicioImpl implements  UsuarioServicio{
 
     @Override
     public Usuario iniciarSesion(String email, String password) throws Exception {
+        Usuario usuarioEmail = usuarioRepo.findByEmail(email).orElseThrow(() -> new Exception("Los datos de autenticación son incorrecots"));
+        StrongPasswordEncryptor strongPasswordEncryptor = new StrongPasswordEncryptor();
+        if (strongPasswordEncryptor.checkPassword(password, usuarioEmail.getPassword())){
+            return usuarioEmail;
+        } else {
+            throw new Exception("La contraseña es incorrecta");
+        }
 
-       return usuarioRepo.findByEmailAndPassword(email, password).orElseThrow(() -> new Exception("Los datos de autenticación son incorrecots"));
 
     }
 

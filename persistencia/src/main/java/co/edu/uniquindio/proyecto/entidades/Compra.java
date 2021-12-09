@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -43,6 +44,7 @@ public class Compra implements Serializable {
 
     //Relación con la entidad DetalleComrpa, donde indica que la Compra tiene un lista de DetallesCompra
     @OneToMany(mappedBy = "compra")
+    @JsonIgnore
     private List<DetalleCompra> detalleCompraList;
 
     public Compra(String medioPago, Usuario usuario, List<DetalleCompra> detalleCompraList) {

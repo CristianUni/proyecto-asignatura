@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,9 @@ public class DetalleProductoBean implements Serializable {
     @Value("#{seguridadBean.usuarioSesion}")
     private Usuario usuarioSesion;
 
+    @Getter @Setter
+    private String precioVisible, descuentoVisible;
+
 
     @PostConstruct
     public void inicializar(){
@@ -52,6 +56,15 @@ public class DetalleProductoBean implements Serializable {
             Integer codigo = Integer.parseInt(codigoProducto);
             producto = productoServicio.obtenerProducto(codigo);
             this.comentarios = producto.getComentarios();
+        }
+
+
+        double precio = producto.getPrecio();
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        precioVisible = formatter.format(precio);
+        if (producto.getDescuento() > 0){
+            double descuentoProducto = producto.getDescuentoVisible();
+            descuentoVisible = formatter.format(descuentoProducto);
         }
 
     }

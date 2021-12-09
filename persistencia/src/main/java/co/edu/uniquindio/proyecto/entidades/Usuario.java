@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,31 +38,37 @@ public class Usuario extends Persona implements Serializable {
 
     //Relacion de uno a muchos con Producto
     @OneToMany(mappedBy = "vendedor")
+    @JsonIgnore
     @ToString.Exclude
     private List<Producto> productosVenta;
 
     //Relacion de uno a muchos con Comentario
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     @ToString.Exclude
     private List<Comentario> comentarios;
 
     //Relacion de uno a muchos con Compra
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     @ToString.Exclude
     private List<Compra> compras;
 
     //Relacion de uno a muchos con DetalleSubasta
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     @ToString.Exclude
     private List<DetalleSubasta> detalleSubasta;
 
     //Relacion de uno a muchos con Chat
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     @ToString.Exclude
     private List<Chat> chats;
 
     //Relacion de muchos a muchos con Producto
     @ManyToMany
+    @JsonIgnore
     @ToString.Exclude
     private List<Producto> productosFavoritos;
 

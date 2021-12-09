@@ -182,6 +182,21 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     }
 
+    @Override
+    public List<Producto> listarRangoPrecio(double min, double max) throws Exception {
+        return productoRepo.listarRangoPrecio(min, max);
+    }
+
+    @Override
+    public List<Producto> listarPorCiudad(String nombreCiudad) throws Exception {
+        return productoRepo.listarPorCiudad(nombreCiudad);
+    }
+
+    @Override
+    public List<Producto> listarRangoUnidades(int min, int max) throws Exception {
+        return productoRepo.listarRangoUnidades(min, max);
+    }
+
     public boolean verificarExistencias(ArrayList<ProductoCarrito> productos) throws Exception{
 
         for (ProductoCarrito p : productos){

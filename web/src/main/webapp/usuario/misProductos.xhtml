@@ -57,8 +57,16 @@
                                     <h:outputText value="#{producto.descripcion} " escape="false" style="font-weight: bold"/>
 
 
-                                    <h:outputText value="Precio: " />
-                                    <h:outputText value="#{producto.precio}" style="font-weight: bold" />
+                                    <div jsf:rendered="#{producto.descuento > 0}">
+                                        <h:outputText value="Precio:" />
+                                        <del><h:outputText value="$#{producto.precio}" style="font-weight: bold"/></del>
+                                        <h:outputText value=" $#{producto.descuentoVisible}"/>
+                                    </div>
+                                    <div jsf:rendered="#{producto.descuento == 0}">
+                                        <h:outputText value="Precio:" />
+                                        <h:outputText value="$ #{producto.precio}" style="font-weight: bold" />
+                                    </div>
+                                    <div/>
 
                                     <h:outputText value="Unidades disponibles: " />
                                     <h:outputText value="#{producto.unidades}" style="font-weight: bold" />

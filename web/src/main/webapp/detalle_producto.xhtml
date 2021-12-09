@@ -13,6 +13,11 @@
 
     <ui:define name="title">#{detalleProductoBean.producto.nombre}</ui:define>
     <ui:define name="content">
+        <div id="fb-root"></div>
+        <script async="true" defer="true" crossorigin="anonymous"
+                src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&amp;version=v12.0"
+                nonce="JF6XBF1x"></script>
+
         <div class="row" >
             <div class="col-lg-7 col-md-1">
                 <div class="box box-stretched">
@@ -26,10 +31,10 @@
             <div class="col-lg-5 col-md-1">
                 <div class="p-grid">
                     <div class="box">
-                        <h1 class="mt-4">$#{detalleProductoBean.producto.precio}</h1>
+                        <h1 class="mt-4">#{detalleProductoBean.producto.nombrePublicacion}</h1>
 
                         <h:form class="mt-4" rendered="#{seguridadBean.autenticado}">
-                            <p:commandButton value="Añadir al carrito" icon="pi pi-shopping-cart" update="@form" action="#{seguridadBean.agregarAlCarrito(detalleProductoBean.producto.codigo, detalleProductoBean.producto.precio, detalleProductoBean.producto.nombre, detalleProductoBean.producto.imagenPrincipal)}" />
+                            <p:commandButton value="Añadir al carrito" icon="pi pi-shopping-cart" update="@form" action="#{seguridadBean.agregarAlCarrito(detalleProductoBean.producto.codigo, detalleProductoBean.producto.descuentoVisible, detalleProductoBean.producto.nombre, detalleProductoBean.producto.imagenPrincipal)}" />
                             <p:growl for="add-cart" showDetail="true" />
 
 
@@ -38,8 +43,18 @@
 
                         </h:form>
                     </div>
+
+                    <div jsf:rendered="#{detalleProductoBean.producto.descuento > 0}">
+                        <h4 class="mt-4 precio-antes"><del>#{detalleProductoBean.precioVisible}</del></h4>
+                        <div class="precio-muestra"><h2>#{detalleProductoBean.descuentoVisible}<span style="color: green; font-size: medium; position: absolute"> #{detalleProductoBean.producto.descuento}% OFF</span></h2></div>
+                    </div>
+
+                    <div jsf:rendered="#{detalleProductoBean.producto.descuento == 0}">
+                        <h2 class="mt-4">#{detalleProductoBean.precioVisible}</h2>
+
+                    </div>
                     <div class="box">
-                        <p>Ciudad: #{detalleProductoBean.producto.ciudad.nombre}</p>
+                        <p style="text-align: left">Ciudad: #{detalleProductoBean.producto.ciudad.nombre}</p>
                     </div>
 
                     <p:dataList emptyMessage="No hay cayegorías para este producto" styleClass="lista-carac" value="#{detalleProductoBean.producto.nombreCategorias}" var="categoria" >
@@ -47,6 +62,9 @@
                         <p>#{categoria}</p>
                     </p:dataList>
                 </div>
+
+                <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>
+                <div style="margin-top: 10px"> <a href="https://twitter.com/intent/tweet?button_hashtag=localhost:8080/detalle_producto.xhtml/?producto=#{detalleProductoBean.producto.codigo}&amp;ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #localhost:8080</a><script async="true" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
             </div>
         </div>
 
