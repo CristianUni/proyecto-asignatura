@@ -65,6 +65,9 @@
 
                 <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>
                 <div style="margin-top: 10px"> <a href="https://twitter.com/intent/tweet?button_hashtag=localhost:8080/detalle_producto.xhtml/?producto=#{detalleProductoBean.producto.codigo}&amp;ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #localhost:8080</a><script async="true" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
+                <h:form>
+                    <p:commandButton value="Chat vendedor" icon="pi pi-send" iconPos="left" styleClass="mt-4" action="#{detalleProductoBean.crearChat}" rendered="#{seguridadBean.autenticado}" />
+                </h:form>
             </div>
         </div>
 

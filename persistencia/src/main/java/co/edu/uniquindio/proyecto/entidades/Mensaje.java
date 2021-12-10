@@ -48,4 +48,12 @@ public class Mensaje implements Serializable {
         this.fecha = fecha;
         this.chat = chat;
     }
+
+    public boolean esComprador (){
+        if (emisor.equals("")){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

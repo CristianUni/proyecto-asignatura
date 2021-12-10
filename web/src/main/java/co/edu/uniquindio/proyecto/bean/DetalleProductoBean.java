@@ -1,8 +1,10 @@
 package co.edu.uniquindio.proyecto.bean;
 
+import co.edu.uniquindio.proyecto.entidades.Chat;
 import co.edu.uniquindio.proyecto.entidades.Comentario;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.servicios.ChatServicio;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import lombok.Getter;
@@ -46,10 +48,17 @@ public class DetalleProductoBean implements Serializable {
     @Getter @Setter
     private String precioVisible, descuentoVisible;
 
+    @Getter
+    @Setter
+    private Chat nuevoChat;
+
+    @Autowired
+    private ChatServicio chatServicio;
 
     @PostConstruct
     public void inicializar(){
 
+        this.nuevoChat=new Chat();
 
         this.nuevoComentario = new Comentario();
         if (codigoProducto != null && !codigoProducto.isEmpty()){
@@ -84,6 +93,24 @@ public class DetalleProductoBean implements Serializable {
             }
 
         }
+    }
+
+    public String crearChat (){
+
+        try {
+            if (usuarioSesion != null){
+                nuevoChat.setProducto(producto);
+                nuevoChat.setUsuario(usuarioSesion);
+                chatServicio.nuevoChat(nuevoChat);
+
+                return "/usuario/chats.xhtml";
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+
     }
 
     public double calificacionPromedio (){
