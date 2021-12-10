@@ -28,14 +28,11 @@ public class InicioBean implements Serializable {
     @Autowired
     private CategoriaRepo categoriaRepo;
 
-    @Autowired
-    private EmailService emailService;
-
     @PostConstruct
     public void inicializar() throws Exception{
         Categoria categoria = categoriaRepo.findById(1).orElseThrow(() -> new Exception("No se encontró una categoría con ese id"));
         this.productos = productoServicio.listarProductos(categoria);
-        emailService.sendSimpleEmail("kristianalexander2014@gmail.com","Mensaje de prueba","Prueba");
+
     }
 
     public String irADetalle(String id){

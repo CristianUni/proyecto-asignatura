@@ -50,27 +50,16 @@ public class UsuarioServicioImpl implements  UsuarioServicio{
     @Override
     public Usuario actualizarUsuario(Usuario u) throws Exception {
 
-      Optional<Usuario> buscado = buscarPorEmail(u.getEmail());
+      Usuario buscado = usuarioRepo.buscar(u.getCodigo());
 
-        if (buscado.isPresent()){
-            throw new Exception("El email del usuario ya existe.");
-        }
-
-
-        buscado = usuarioRepo.findByUsername(u.getUsername());
-
-        if (buscado.isPresent()){
-            throw new Exception("El username del usuario ya existe.");
-        }
-
-         buscado = usuarioRepo.findById(u.getCodigo());
-
-        if (buscado.isEmpty())
+        if (buscado == null)
         {
             throw new Exception("El usuario no existe");
         }
 
-        return usuarioRepo.save(u);
+
+        buscado = u;
+        return usuarioRepo.save(buscado);
     }
 
     private Usuario buscarUsuario(Usuario u) throws Exception {
@@ -198,5 +187,10 @@ public class UsuarioServicioImpl implements  UsuarioServicio{
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
+    }
+
+    @Override
+    public Usuario obtenerUsuarioPorEmail(String email) throws Exception {
+        return usuarioRepo.findByEmail(email).orElse(null);
     }
 }

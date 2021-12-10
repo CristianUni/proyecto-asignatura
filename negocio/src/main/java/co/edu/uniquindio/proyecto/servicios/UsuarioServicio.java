@@ -27,6 +27,8 @@ public interface UsuarioServicio {
 
     void eliminarFavorito(Producto p, String id) throws Exception;
 
+    Usuario obtenerUsuarioPorEmail(String email) throws Exception;
+
 
 
 }

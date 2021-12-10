@@ -68,4 +68,5 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer> {
 
     @Query("select p from Producto p where p.unidades between :min and :max")
     List<Producto> listarRangoUnidades(int min, int max);
+
 }

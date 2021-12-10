@@ -37,4 +37,9 @@ public interface UsuarioRepo extends JpaRepository<Usuario, String> {
     @Query("select distinct c.usuario from Producto p join p.comentarios c where p.codigo = :id")
     List<Usuario> listarUsuariosComentario(Integer id);
 
+    @Query("select u from Usuario u where u.codigo = :codigo")
+    Usuario buscar(String codigo);
+
+
+
 }

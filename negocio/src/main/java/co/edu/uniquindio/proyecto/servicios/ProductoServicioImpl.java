@@ -25,6 +25,9 @@ public class ProductoServicioImpl implements ProductoServicio {
     private final CompraRepo compraRepo;
 
     private final DetalleCompraRepo detalleCompraRepo;
+    
+    @Autowired
+    private EmailService emailService;
 
     public ProductoServicioImpl(ProductoRepo productoRepo, ComentarioRepo comentarioRepo, CategoriaRepo categoriaRepo, CompraRepo compraRepo, DetalleCompraRepo detalleCompraRepo) {
         this.productoRepo = productoRepo;
@@ -49,7 +52,9 @@ public class ProductoServicioImpl implements ProductoServicio {
     @Override
     public void actualizarProducto(Producto producto) throws Exception {
         try {
-            productoRepo.save(producto);
+            Producto producto1 = productoRepo.getById(producto.getCodigo());
+            producto1 = producto;
+            productoRepo.save(producto1);
         } catch (Exception e){
             throw new Exception("Error al actualizar el producto");
         }
@@ -150,6 +155,9 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     @Override
     public Compra comprarProductos(Usuario usuario, ArrayList<ProductoCarrito> productos, String medioPago) throws Exception{
+        
+        String cuerpoEmail = "Cordial saludo \n" + usuario.getNombre() + "\n\n" +
+                "A continuación encontrará los detalles de su compra. \n\n";
 
         try {
 
@@ -174,7 +182,12 @@ public class ProductoServicioImpl implements ProductoServicio {
                 productoAux.setUnidades(unidadesNuevas);
                 productoRepo.save(productoAux);
                 detalleCompraRepo.save(dc);
+                
+                cuerpoEmail += "-Producto: " + p.getNombre() + "\n Unidades: " + p.getUnidades() + "\n\n";
             }
+            cuerpoEmail += "Medio de pago: " + medioPago +
+            "\n\nGracias por preferirnos.";
+            emailService.sendSimpleEmail(usuario.getEmail(),cuerpoEmail,"UniShop-Confirmación de compra");
             return compraGuardada;
         }catch (Exception e){
             throw new Exception(e.getMessage());

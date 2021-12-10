@@ -8,6 +8,7 @@ import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -57,6 +58,9 @@ public class SeguridadBean implements Serializable {
     @Getter @Setter
     private List<Producto> productosComprados;
 
+    @Autowired
+    private EmailService emailService;
+
 
     @PostConstruct
     public void inicializar(){
@@ -97,23 +101,52 @@ public class SeguridadBean implements Serializable {
 
     }
 
-    public String iniciarSesion(){
-
-        if(!email.isEmpty() && !password.isEmpty()){
+    public void recuperarContraseña(){
+        if(!email.isEmpty()){
             try {
-                usuarioSesion = usuarioServicio.iniciarSesion(email, password);
-                autenticado=true;
+                Usuario usuario = usuarioServicio.obtenerUsuarioPorEmail(email);
+                String nuevaContraseña = usuario.getNombre()+"123";
+                StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+                usuario.setPassword(passwordEncryptor.encryptPassword(nuevaContraseña));
+                usuarioServicio.actualizarUsuario(usuario);
+                String cuerpo = "Cordial saludo \n" + usuario.getNombre() + "\n\nSu nueva contraseña es: " + nuevaContraseña;
+                emailService.sendSimpleEmail(email, cuerpo, "UniShop-Recuperar contraseña");
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Se envió una nueva contraseña a su correo");
+                FacesContext.getCurrentInstance().addMessage("login-bean", fm);
 
-                actualizarListaProductosPublicados();
-                actualizarListaProductosFavoritos();
-                actualizarListaProductosComprados();
-
-                return "/index.xhtml?faces-redirect=true";
-            } catch (Exception e) {
+            } catch (Exception e){
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
                 FacesContext.getCurrentInstance().addMessage("login-bean", fm);
+
             }
         }
+    }
+
+    public String iniciarSesion(){
+
+        if(!password.isEmpty()){
+            if(!email.isEmpty()){
+                try {
+                    usuarioSesion = usuarioServicio.iniciarSesion(email, password);
+                    autenticado=true;
+
+                    actualizarListaProductosPublicados();
+                    actualizarListaProductosFavoritos();
+                    actualizarListaProductosComprados();
+
+                    return "/index.xhtml?faces-redirect=true";
+                } catch (Exception e) {
+                    FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+                    FacesContext.getCurrentInstance().addMessage("login-bean", fm);
+                }
+            }
+
+        } else {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "Ingrese una contraseña");
+            FacesContext.getCurrentInstance().addMessage("login-bean", fm);
+        }
+
+
         return null;
     }
 
@@ -157,8 +190,6 @@ public class SeguridadBean implements Serializable {
         if(usuarioServicio != null && !productosCarrito.isEmpty() && !medioPago.isEmpty()){
             try {
 
-                //EmailService emailService = new EmailService();
-                //emailService.("kristianalexander2014@gmail.com","Prueba","Mensaje de prueba");
                 productoServicio.comprarProductos(usuarioSesion, productosCarrito, medioPago);
 
                 productosCarrito.clear();

@@ -54,7 +54,7 @@ public class UsuarioRestController {
     }
 
     @DeleteMapping("/{codigo}")
-    public ResponseEntity<?> eliminar (@PathVariable("id") String codigo) {
+    public ResponseEntity<?> eliminar (@PathVariable("codigo") String codigo) {
         try {
             usuarioServicio.eliminarUsuario(codigo);
            return ResponseEntity.status(200).body(new Mensaje("El usuario se eliminó exitosamente"));
